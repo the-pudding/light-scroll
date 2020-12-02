@@ -55,7 +55,6 @@
 
  function updateScrollDown(slide) {
    if (slide === 'slide1') {
-     console.log(slide)
      light.on()
 
    }
@@ -63,7 +62,7 @@
      light.off()
    }
    if (slide === 'slide6') {
-     console.log('slide 6')
+     //  console.log('slide 6')
    }
  }
 
@@ -167,7 +166,9 @@
    enterView({
      selector: '.slide',
      enter(el) {
+
        const thisSlide = d3.select(el).attr('data-step')
+       console.log(thisSlide)
        updateScrollDown(thisSlide)
      },
      exit(el) {
@@ -181,13 +182,7 @@
          handleProgress(thisSlide, progress)
        }
      },
-     offset: function (el) {
-       const thisSlide = d3.select(el).attr('data-step')
-       let offsetVal = 0.5
-       //    thisSlide === 'slide6' ? 0.01 : 0.5
-       return offsetVal
-
-     }, // enter at middle of viewport
+     offset: 0.5, // enter at middle of viewport
      once: false, // trigger just once
    });
 
@@ -227,22 +222,17 @@
 
    d3.selectAll('.slide')
      .style('height', `${displayHeight}px`)
+
+
+   d3.select('[data-step="slide6"]')
+     .style('height', `1px`)
  }
 
  function init() {
 
-   const order = Promise.resolve()
-
-   order.then(() => {
-       resize()
-     })
-     .then(() => {
-       setupEnterView()
-     })
-     .then(() => {
-       setupBeginButton(timer)
-     })
-
+   resize()
+   setupEnterView()
+   setupBeginButton(timer)
 
 
  }
