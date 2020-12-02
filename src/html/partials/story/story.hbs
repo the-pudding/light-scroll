@@ -1,0 +1,67 @@
+<div class='lightbulb-container'>
+    <div class='lightbulb-off'>
+        <img src='assets/images/light-off.svg'>
+    </div>
+    <div class='lightbulb-on hidden'>
+        <img src='assets/images/light-on.svg'>
+    </div>
+    <div class='timer-container hidden'>
+        <div class='timer-title'>Time worked</div>
+        <div class='timer'>
+            <p class='timer-hours'>
+                <span class='hours-tens'>0</span>
+                <span class='hours-ones'>0</span>
+            </p>:
+            <p class='timer-minutes'>
+                <span class='minutes-tens'>0</span>
+                <span class='minutes-ones'>0</span>
+            </p>:
+            <p class='timer-seconds'>
+                <span class='seconds-tens'>0</span>
+                <span class='seconds-ones'>0</span>
+            </p>
+        </div>
+        <div class='timer-labels'>
+            <span class='title-hours'>Hours</span>
+            <span class='title-minutes'>Minutes</span>
+            <span class='title-seconds'>Seconds</span>
+        </div>
+    </div>
+</div>
+
+<div class='story'>
+    <div class='intro1'>
+        <p class='intro-text'>Whoa, dark in here! Better turn the light on. </p>
+        <p class='scroll-prompt'>Scroll down to turn the light on</p>
+    </div>
+    {{#each doc.story-context}}
+    <div class='{{{class}}}' data-step='{{{data-step}}}' data-previous-step='{{{data-previous-step}}}'>
+
+        {{!-- Add title-sized text --}}
+        {{#if large-text}}
+        <p class='story-large-text'> {{{large-text}}}</p>
+        {{/if}}
+        <p class='story-text'>{{{text}}}</p>
+
+
+        {{!-- Add correct images --}}
+        {{#if sleep-past}}
+        <img class='sleep-schedule' src='assets/images/sleep-past.png'>
+        {{/if}}
+
+        {{#if sleep-present}}
+        <img class='sleep-schedule' src='assets/images/sleep-present.png'>
+        {{/if}}
+
+        {{!-- Add begin button to kick off scroll section --}}
+        {{#if button-begin-2000s}}
+        <div class='button-begin' id='begin-2000s'>
+            <p>begin</p>
+        </div>
+        {{/if}}
+
+    </div>
+
+
+    {{/each}}
+</div>

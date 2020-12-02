@@ -1,1 +1,150 @@
 /* CUSTOM STORY STYLE */
+.sleep-schedule
+    max-width 40rem
+    // height 100%
+    margin 0 auto
+    margin-left 10%
+
+
+.intro1
+    display: flex
+    flex-direction: column
+    justify-content: center
+    background-color: #353535
+    .intro-text
+        margin 0 
+        font-size: 64px
+        font-family: 'Share Tech Mono', monospace;
+        width 60%
+        margin-left 10%
+        color white
+    .scroll-prompt
+        position absolute
+        bottom 2%
+        margin-left 10%
+        color white
+        font-family $national
+         
+.lightbulb-container
+    top 0
+    right 0
+    position fixed
+    z-index: 10
+    width 30%
+    .lightbulb-off
+    .lightbulb-on        
+        position relative
+        img
+            position absolute
+            top 0
+            right 0
+            width 80%
+
+.timer-container
+        position absolute
+        bottom 10%
+    .timer-title
+        font-family: $national
+        text-transform: uppercase
+        font-weight: 600
+    .timer
+        background-color: black
+        font-family: 'Share Tech Mono', monospace;
+        color white
+        display inline-block
+
+        .timer-hours, .timer-minutes, .timer-seconds
+            display: inline-block
+            font-size: 48px
+            line-height: 0.5
+
+        .timer-hours
+            margin-left 0.45rem
+        
+        .timer-seconds
+            margin-right: 0.45rem
+            
+    .timer-labels
+        display: flex
+        justify-content: space-between
+        font-family: $national
+        text-transform: lowercase
+
+
+
+.story
+    overflow hidden
+
+    .slide
+        display flex
+        flex-direction: column
+        justify-content: center
+
+        .story-text
+            margin-left 10%
+            text-align: left
+            font-family $national
+            max-width 50%
+        
+        .story-large-text            
+            margin-left 10%
+            text-align left
+            font-size 54px
+            font-family: 'Share Tech Mono', monospace;
+            max-width 50%
+    
+    .slide-dark
+        display flex
+        flex-direction: column
+        justify-content: center
+        background-color: #353535
+
+        .story-text
+            margin-left 10%
+            text-align: left
+            font-family $national
+            color white
+            max-width 50%
+        
+        .story-large-text            
+            margin-left 10%
+            text-align left
+            font-size 54px
+            font-family: 'Share Tech Mono', monospace;
+            color white
+            max-width 50%
+
+
+    .button-begin
+        max-width 10%
+        background-color: white
+        height 5rem
+        margin-left 10%
+        cursor pointer
+        display: flex
+        flex-direction: column
+        justify-content: center
+        margin-top 1.5rem
+
+        p
+            text-transform: uppercase
+            text-align: center
+            margin 0
+            font-family $national
+            font-weight: 600
+            font-size 24px
+    
+    .slide-success-2000
+        height 1px
+        width 100%
+        // display none
+        .story-text
+            margin 0
+            background-color: white
+
+.hidden    
+    display none
+
+.no-scroll
+    overflow: hidden
+
