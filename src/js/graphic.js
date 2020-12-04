@@ -4,22 +4,68 @@
 
  import timer from './timer'
  import light from './light'
- //  import buttons from './buttons'
 
- let successAllowed = false
+ let displayHeight;
+ let displaywidth;
+
+ const $html = d3.select('html')
+ const $firstCheckpointTitle = $html.select('[data-step="slide5"]').select('.story-large-text')
+ const $firstCheckpointText = $html.select('[data-step="slide5"]').select('.story-text')
+
+ const $seconds = d3.select('.time')
 
 
- let displayHeight
- let displaywidth
+ function changeText2000(changeType) {
 
- const $secondsTens = d3.select('span.seconds-tens')
- const $secondsOnes = d3.select('span.seconds-ones')
+   if (changeType === 'changeForward') {
+     $firstCheckpointTitle
+       .text('Easy, there!')
+       .classed('black-text', true)
 
- const $minutesTens = d3.select('span.minutes-tens')
- const $minutesOnes = d3.select('span.minutes-ones')
+     $firstCheckpointText
+       .text('If the one pixel you just scrolled through were equal to the wages you’d earn for a second of your time, you’d already have 3 hours of sweet illumination.')
 
- const $hoursTens = d3.select('span.hours-tens')
- const $hoursOnes = d3.select('span.hours-ones')
+       .classed('black-text', true)
+
+     light.on()
+   } else if (changeType === 'changeBack') {
+     $firstCheckpointTitle
+       .text('Let’s try working for your light.')
+       .classed('black-text', true)
+
+     $firstCheckpointText
+       .text('Each pixel you scroll through is the equivalent to a second of work for an average waged worker in America. Let’s see how long it takes you to afford an hour’s worth of light in 2020.')
+       .classed('black-text', true)
+     light.off()
+   }
+ }
+
+ function handleTimerEnd(section, totalSeconds) {
+   if (section === 'begin-2000s' && totalSeconds >= 1) {
+     changeText2000('changeForward')
+   }
+ }
+
+ function startTimerCount(section) {
+
+
+   const basePixelPosition = document.documentElement.scrollTop || document.body.scrollTop
+
+   document.addEventListener('scroll', e => {
+     const currentPixelPosition = document.documentElement.scrollTop || document.body.scrollTop;
+     const totalSeconds = parseInt(currentPixelPosition - basePixelPosition)
+
+     const timeToDisplay = new Date(totalSeconds * 1000).toISOString().substr(11, 8)
+
+     $seconds.text(timeToDisplay)
+
+     handleTimerEnd(section, totalSeconds)
+
+
+   })
+ }
+
+
 
 
 
@@ -33,7 +79,10 @@
        timer.showTimer()
        d3.select(this).style('visibility', 'hidden')
        d3.select('.slide-success-2000').style('display', 'block')
-       successAllowed = true
+       $html.classed('stop-scrolling', false)
+
+       startTimerCount(clickedButton)
+
 
      } else if (clickedButton === 'begin-1800s') {
 
@@ -44,13 +93,7 @@
  }
 
 
- function updateTimer(progress) {
-   const pixelProgress = progress * displayHeight
 
-   if (pixels < 60) {
-
-   }
- }
 
 
  function updateScrollDown(slide) {
@@ -66,78 +109,19 @@
    }
  }
 
+
+
+
  function updateScrollUp(slide) {
    if (slide === 'slide1') {
      light.off()
    }
    if (slide === 'slide5') {
      light.on()
+
    }
  }
 
-
- //  function winText(el)
-
-
- //  enterView({
- //     selector: '.slide-success-2000',
- //     enter(el) {
-
- //     },
- //     exit(el) {
- //       const thisSlide = d3.select(el).attr('class')
-
- //       handleSuccessExit(thisSlide)
- //     },
- //     progress: function (el, progress) {
- //       const thisSlide = d3.select(el).attr('class')
- //       if (thisSlide === 'slide-success-2000' && successAllowed) {
- //         handleSuccessEnter(thisSlide, progress)
- //       }
- //     },
- //     offset: 0.0001, // enter at middle of viewport
- //     once: false, // trigger just once
- //   });
-
- //  function handleSuccessEnter(slide, progress) {
- //    if (slide === 'slide-success-2000' && progress > 0.01) {
-
- //      const $editedSlide = d3.select('[data-step="slide5"]')
-
- //      $editedSlide
- //        .select('.story-large-text')
- //        .text('Easy, there!')
-
- //      $editedSlide
- //        .select('.story-text')
- //        .text('If the pixels you just scrolled through were equal to the wages you’d earn for a second of your time, you’d already have 3 hours of sweet illumination.')
-
-
- //      light.on()
- //    }
- //    if (slide === 'slide-success-2000' && progress < 0.01) {
- //      console.log('exiting 2000s')
- //      const $editedSlide = d3.select('[data-step="slide5"]')
-
- //      $editedSlide
- //        .select('.story-large-text')
- //        .text('Let’s try working for your light.')
-
- //      $editedSlide
- //        .select('.story-text')
- //        .text('Each pixel you scroll through is the equivalent to a second of work for an average waged worker in America. Let’s see how long it takes you to afford an hour’s worth of light in 2020.')
-
-
- //      light.off()
- //    }
- //  }
-
-
- //  function handleSuccessExit(slide) {
- //    if (slide === 'slide-success-2000') {
- //      light.off()
- //    }
- //  }
 
 
 
@@ -148,14 +132,7 @@
  function handleProgress(slide, progress) {
    if (slide === 'slide5') {
 
-     console.log(progress)
-     if (progress >= 0.499) {
-       d3.select('#begin-2000s').style('visibility', 'visible')
-     } else if (progress < 0.499) {
-       d3.select('#begin-2000s').style('visibility', 'hidden')
-       d3.select('.slide-success-2000').style('display', 'none')
-       timer.hideTimer()
-     }
+
    }
 
  }
@@ -168,11 +145,12 @@
      enter(el) {
 
        const thisSlide = d3.select(el).attr('data-step')
-       console.log(thisSlide)
+       console.log(`enter: ${thisSlide}`)
        updateScrollDown(thisSlide)
      },
      exit(el) {
        const thisSlide = d3.select(el).attr('data-step')
+       console.log(`exit: ${thisSlide}`)
        updateScrollUp(thisSlide)
      },
      progress: function (el, progress) {
@@ -187,6 +165,72 @@
    });
 
 
+
+
+
+
+   //setting up win screens
+
+   enterView({
+     selector: '.slide-success-2000',
+     enter(el) {
+
+       const order = Promise.resolve()
+       order.then(() => {
+           //    disableScrolling()
+           //    disableScroll()
+
+           $html.classed('stop-scrolling', true)
+         })
+         .then(() => {
+           d3.select('.test-div').style('display', 'block')
+         })
+
+
+
+       d3.select('#begin-2000s').style('visibility', 'visible')
+
+
+     },
+     exit(el) {
+       const thisSlide = d3.select(el).attr('data-step')
+       console.log(`exit: ${thisSlide}`)
+       changeText2000('changeBack')
+       timer.hideTimer()
+
+     },
+     progress: function (el, progress) {
+
+     },
+     offset: 0.0, // enter at bottom of viewport
+     once: false, // trigger just once
+   });
+
+
+
+
+
+   //setting up win screens
+
+   enterView({
+     selector: '.slide-1800s',
+     enter(el) {
+
+
+       console.log('nice')
+
+
+     },
+     exit(el) {
+
+
+     },
+     progress: function (el, progress) {
+
+     },
+     offset: 0.0, // enter at bottom of viewport
+     once: false, // trigger just once
+   });
 
 
 
@@ -230,9 +274,20 @@
 
  function init() {
 
-   resize()
-   setupEnterView()
-   setupBeginButton(timer)
+   const order = Promise.resolve()
+
+   order.then(() => {
+       resize()
+     })
+     .then(() => {
+       setupEnterView()
+     })
+     .then(() => {
+       setupBeginButton(timer)
+     })
+
+
+
 
 
  }

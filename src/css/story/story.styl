@@ -1,4 +1,7 @@
 /* CUSTOM STORY STYLE */
+
+
+
 .sleep-schedule
     max-width 40rem
     // height 100%
@@ -43,6 +46,7 @@
 .timer-container
         position absolute
         bottom 10%
+        opacity: 0
     .timer-title
         font-family: $national
         text-transform: uppercase
@@ -53,10 +57,12 @@
         color white
         display inline-block
 
-        .timer-hours, .timer-minutes, .timer-seconds
+        .time
             display: inline-block
             font-size: 48px
             line-height: 0.5
+            margin-left 0.45rem
+            margin-right: 0.45rem
 
         .timer-hours
             margin-left 0.45rem
@@ -92,7 +98,7 @@
             font-size 54px
             font-family: 'Share Tech Mono', monospace;
             max-width 50%
-    
+
     .slide-dark
         display flex
         flex-direction: column
@@ -114,6 +120,10 @@
             color white
             max-width 50%
 
+        .black-text
+            color black
+      
+
 
     .button-begin
         max-width 10%
@@ -125,6 +135,7 @@
         flex-direction: column
         justify-content: center
         margin-top 1.5rem
+        visibility: hidden
 
         p
             text-transform: uppercase
@@ -141,6 +152,13 @@
         .story-text
             margin 0
             background-color: white
+    .slide-1800s
+        height 21600px
+
+
+.test-div
+    height 1px
+    display: none
 
 .hidden    
     display none
@@ -148,3 +166,7 @@
 .no-scroll
     overflow: hidden
 
+.stop-scrolling {
+  height: 100%;
+  overflow: hidden;
+}

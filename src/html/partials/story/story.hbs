@@ -5,10 +5,11 @@
     <div class='lightbulb-on hidden'>
         <img src='assets/images/light-on.svg'>
     </div>
-    <div class='timer-container hidden'>
+    <div class='timer-container'>
         <div class='timer-title'>Time worked</div>
         <div class='timer'>
-            <p class='timer-hours'>
+            <p class='time'>00:00:00</p>
+            {{!-- <p class='timer-hours'>
                 <span class='hours-tens'>0</span>
                 <span class='hours-ones'>0</span>
             </p>:
@@ -19,7 +20,7 @@
             <p class='timer-seconds'>
                 <span class='seconds-tens'>0</span>
                 <span class='seconds-ones'>0</span>
-            </p>
+            </p> --}}
         </div>
         <div class='timer-labels'>
             <span class='title-hours'>Hours</span>
@@ -63,5 +64,7 @@
     </div>
 
 
+
     {{/each}}
+    <div class='test-div'></div>
 </div>
