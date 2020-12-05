@@ -11,8 +11,21 @@
  const $html = d3.select('html')
  const $firstCheckpointTitle = $html.select('[data-step="slide5"]').select('.story-large-text')
  const $firstCheckpointText = $html.select('[data-step="slide5"]').select('.story-text')
+ const $win2000Text = $html.select('.win-2000s')
 
  const $seconds = d3.select('.time')
+
+
+
+ function win2000s() {
+   console.log('WON')
+   light.on()
+
+   $firstCheckpointTitle.transition().style('opacity', 0)
+   $firstCheckpointText.transition().style('opacity', 0)
+   $win2000Text.transition().style('opacity', 1)
+
+ }
 
 
  function changeText2000(changeType) {
@@ -41,13 +54,18 @@
  }
 
  function handleTimerEnd(section, totalSeconds) {
-   if (section === 'begin-2000s' && totalSeconds >= 1) {
-     changeText2000('changeForward')
+   console.log(section)
+   console.log(totalSeconds)
+   if (section === 'begin-2000s' && totalSeconds >= 2) {
+     win2000s()
+     //  timer.stopTimer()
    }
  }
 
- function startTimerCount(section) {
 
+
+
+ function startTimerCount(section) {
 
    const basePixelPosition = document.documentElement.scrollTop || document.body.scrollTop
 
@@ -58,12 +76,13 @@
      const timeToDisplay = new Date(totalSeconds * 1000).toISOString().substr(11, 8)
 
      $seconds.text(timeToDisplay)
+     //  console.log(`section ${section}`)
 
      handleTimerEnd(section, totalSeconds)
 
-
    })
  }
+
 
 
 
@@ -172,37 +191,37 @@
    //setting up win screens
 
    enterView({
-     selector: '.slide-success-2000',
+     selector: '.slide-pre',
      enter(el) {
 
-       const order = Promise.resolve()
-       order.then(() => {
-           //    disableScrolling()
-           //    disableScroll()
-
-           $html.classed('stop-scrolling', true)
-         })
-         .then(() => {
-           d3.select('.test-div').style('display', 'block')
-         })
-
-
-
-       d3.select('#begin-2000s').style('visibility', 'visible')
-
+       light.off()
 
      },
      exit(el) {
        const thisSlide = d3.select(el).attr('data-step')
        console.log(`exit: ${thisSlide}`)
-       changeText2000('changeBack')
-       timer.hideTimer()
+       //    changeText2000('changeBack')
+
 
      },
      progress: function (el, progress) {
+       if (progress === 1) {
+         const order = Promise.resolve()
+         order.then(() => {
+
+             $html.classed('stop-scrolling', true)
+           })
+           .then(() => {
+             d3.select('#begin-2000s').style('visibility', 'visible')
+           })
+       } else {
+         timer.hideTimer()
+       }
+
+
 
      },
-     offset: 0.0, // enter at bottom of viewport
+     offset: 0, // enter at top of viewport
      once: false, // trigger just once
    });
 
@@ -212,25 +231,19 @@
 
    //setting up win screens
 
-   enterView({
-     selector: '.slide-1800s',
-     enter(el) {
+   //    enterView({
+   //      selector: '.slide-1800s',
+   //      enter(el) {
 
+   //        console.log('nice')
+   //      },
+   //      exit(el) {},
+   //      progress: function (el, progress) {
 
-       console.log('nice')
-
-
-     },
-     exit(el) {
-
-
-     },
-     progress: function (el, progress) {
-
-     },
-     offset: 0.0, // enter at bottom of viewport
-     once: false, // trigger just once
-   });
+   //      },
+   //      offset: 0.0, // enter at bottom of viewport
+   //      once: false, // trigger just once
+   //    });
 
 
 
@@ -267,9 +280,15 @@
    d3.selectAll('.slide')
      .style('height', `${displayHeight}px`)
 
+   d3.selectAll('.slide-pre')
+     .style('height', `${displayHeight}px`)
 
-   d3.select('[data-step="slide6"]')
-     .style('height', `1px`)
+   d3.selectAll('.slide-1800s-intro')
+     .style('height', `${displayHeight}px`)
+
+
+   //    d3.select('[data-step="slide6"]')
+   //      .style('height', `1px`)
  }
 
  function init() {

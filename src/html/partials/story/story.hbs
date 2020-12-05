@@ -9,18 +9,6 @@
         <div class='timer-title'>Time worked</div>
         <div class='timer'>
             <p class='time'>00:00:00</p>
-            {{!-- <p class='timer-hours'>
-                <span class='hours-tens'>0</span>
-                <span class='hours-ones'>0</span>
-            </p>:
-            <p class='timer-minutes'>
-                <span class='minutes-tens'>0</span>
-                <span class='minutes-ones'>0</span>
-            </p>:
-            <p class='timer-seconds'>
-                <span class='seconds-tens'>0</span>
-                <span class='seconds-ones'>0</span>
-            </p> --}}
         </div>
         <div class='timer-labels'>
             <span class='title-hours'>Hours</span>
@@ -35,7 +23,7 @@
         <p class='intro-text'>Whoa, dark in here! Better turn the light on. </p>
         <p class='scroll-prompt'>Scroll down to turn the light on</p>
     </div>
-    {{#each doc.story-context}}
+    {{#each doc.story-open}}
     <div class='{{{class}}}' data-step='{{{data-step}}}' data-previous-step='{{{data-previous-step}}}'>
 
         {{!-- Add title-sized text --}}
@@ -61,10 +49,24 @@
         </div>
         {{/if}}
 
+
+
+        {{!-- Add invisible element for 2000s win section button to kick off scroll section --}}
+        {{#if text-below}}
+        <p class='win-2000s story-text invisible'>{{{text-below}}}</p>
+        {{/if}}
+
     </div>
 
 
 
+    {{!-- 1800s text --}}
+
     {{/each}}
-    <div class='test-div'></div>
+
+    {{#each doc.story-1800s}}
+    <div class='{{{class}}}' data-step='{{{data-step}}}' data-previous-step='{{{data-previous-step}}}'>
+        <p class='story-text'>{{{text}}}</p>
+    </div>
+    {{/each}}
 </div>

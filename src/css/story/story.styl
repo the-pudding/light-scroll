@@ -81,7 +81,7 @@
 .story
     overflow hidden
 
-    .slide
+    .slide,.slide-1800s-intro
         display flex
         flex-direction: column
         justify-content: center
@@ -122,36 +122,40 @@
 
         .black-text
             color black
+
+        .button-begin
+            max-width 10%
+            background-color: white
+            height 5rem
+            margin-left 10%
+            cursor pointer
+            display: flex
+            flex-direction: column
+            justify-content: center
+            margin-top 1.5rem
+            visibility: hidden
+
+            p
+                text-transform: uppercase
+                text-align: center
+                margin 0
+                font-family $national
+                font-weight: 600
+                font-size 24px
       
 
 
-    .button-begin
-        max-width 10%
-        background-color: white
-        height 5rem
-        margin-left 10%
-        cursor pointer
-        display: flex
-        flex-direction: column
-        justify-content: center
-        margin-top 1.5rem
-        visibility: hidden
+    .win-2000s
+        color white
 
-        p
-            text-transform: uppercase
-            text-align: center
-            margin 0
-            font-family $national
-            font-weight: 600
-            font-size 24px
     
-    .slide-success-2000
-        height 1px
-        width 100%
-        // display none
-        .story-text
-            margin 0
-            background-color: white
+    // .slide-success-2000
+    //     height 1px
+    //     width 100%
+    //     // display none
+    //     .story-text
+    //         margin 0
+    //         background-color: white
     .slide-1800s
         height 21600px
 
@@ -170,3 +174,7 @@
   height: 100%;
   overflow: hidden;
 }
+
+
+.invisible
+    opacity: 0

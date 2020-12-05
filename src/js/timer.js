@@ -8,8 +8,14 @@ function hideTimer() {
   // d3.select('.timer-container').classed('hidden', true)
 }
 
+function resetTimer() {
+  d3.select('.timer-container').select('.time').text('00:00:00')
+  // d3.select('.timer-container').classed('hidden', true)
+}
+
 
 export default {
   showTimer,
-  hideTimer
+  hideTimer,
+  resetTimer
 };
