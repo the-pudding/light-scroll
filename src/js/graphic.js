@@ -410,7 +410,7 @@
      progress: function (el, progress) {
        console.log(`progress: ${progress}`)
        console.log(progress)
-       if (progress >= 0.6 && allow2000bc) {
+       if (progress >= 0.59 && allow2000bc) {
          const order = Promise.resolve()
          order.then(() => {
              console.log('2000BC stop scrolling')

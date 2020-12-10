@@ -81,7 +81,16 @@
         {{#each doc.story-1800s}}
         <div class='{{{class}}}' data-step='{{{data-step}}}' data-previous-step='{{{data-previous-step}}}'>
             <p class='story-text'>{{{text}}}</p>
-
+            {{!-- Add correct images --}}
+            {{#if newspaper}}
+            <img class='newspaper' src='assets/images/newspaper.jpg'>
+            {{/if}}
+            {{#if fashion}}
+            <img class='fashion' src='assets/images/fashion.jpg'>
+            {{/if}}
+            {{#if hermit}}
+            <img class='hermit' src='assets/images/hermit.jpg'>
+            {{/if}}
         </div>
         {{/each}}
         <div class='win-1800s' data-step='step12' data-previous-step='step10'>
