@@ -60,13 +60,48 @@
 
 
 
+
+
+    {{/each}}
     {{!-- 1800s text --}}
 
-    {{/each}}
-
-    {{#each doc.story-1800s}}
+    {{#each doc.intro-1800s}}
     <div class='{{{class}}}' data-step='{{{data-step}}}' data-previous-step='{{{data-previous-step}}}'>
         <p class='story-text'>{{{text}}}</p>
+        {{#if button-begin-1800s}}
+        <div class='button-begin' id='begin-1800s'>
+            <p>begin</p>
+        </div>
+        {{/if}}
     </div>
     {{/each}}
+
+
+    <div class='slides-container-1800s hidden'>
+        {{#each doc.story-1800s}}
+        <div class='{{{class}}}' data-step='{{{data-step}}}' data-previous-step='{{{data-previous-step}}}'>
+            <p class='story-text'>{{{text}}}</p>
+
+        </div>
+        {{/each}}
+        <div class='win-1800s' data-step='step12' data-previous-step='step10'>
+            <p class='story-text'>After a hard day's work, you get to relax in the warm, expensive glow of a delicious
+                candle.</p>
+        </div>
+    </div>
+
+    {{#each doc.intro-2000bc}}
+    <div class='{{{class}}}' data-step='{{{data-step}}}' data-previous-step='{{{data-previous-step}}}'>
+        <p class='story-text'>{{{text}}}</p>
+        {{#if button-begin-2000bc}}
+        <div class='button-begin' id='begin-2000bc'>
+            <p>begin</p>
+        </div>
+        {{/if}}
+    </div>
+    {{/each}}
+
+    <div class='slides-container-2000bc hidden'></div>
+
+
 </div>

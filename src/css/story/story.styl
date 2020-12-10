@@ -81,7 +81,7 @@
 .story
     overflow hidden
 
-    .slide,.slide-1800s-intro
+    .slide
         display flex
         flex-direction: column
         justify-content: center
@@ -123,42 +123,189 @@
         .black-text
             color black
 
-        .button-begin
-            max-width 10%
-            background-color: white
-            height 5rem
-            margin-left 10%
-            cursor pointer
-            display: flex
-            flex-direction: column
-            justify-content: center
-            margin-top 1.5rem
-            visibility: hidden
+    .slide-1800s-intro
+        display flex
+        flex-direction: column
+        justify-content: center
+        background-color: white
 
-            p
-                text-transform: uppercase
-                text-align: center
-                margin 0
-                font-family $national
-                font-weight: 600
-                font-size 24px
-      
+        .story-text
+            margin-left 10%
+            text-align: left
+            font-family $national
+            max-width 50%
+        
+        .story-large-text            
+            margin-left 10%
+            text-align left
+            font-size 54px
+            font-family: 'Share Tech Mono', monospace;
+            max-width 50%  
+
+    .slide-2000bc-intro
+        display flex
+        flex-direction: column
+        justify-content: center
+        background-color: white
+
+        .story-text
+            margin-left 10%
+            text-align: left
+            font-family $national
+            max-width 50%
+        
+        .story-large-text            
+            margin-left 10%
+            text-align left
+            font-size 54px
+            font-family: 'Share Tech Mono', monospace;
+            max-width 50%  
+
+    .slide-1800s-intro.hidden
+    .slide-2000bc-intro.hidden
+        display: none     
 
 
     .win-2000s
         color white
 
-    
-    // .slide-success-2000
-    //     height 1px
-    //     width 100%
-    //     // display none
-    //     .story-text
-    //         margin 0
-    //         background-color: white
-    .slide-1800s
-        height 21600px
 
+    .slide-start-2020
+        p.win-2000s
+            color #353535
+
+
+.slides-container-1800s
+    // height 21600px   
+    height auto
+    // display flex
+    flex-direction: column
+    justify-content: space-between
+    display: none   
+    background-color: #353535
+    .story-text
+        margin-left 10%
+        text-align: left
+        font-family $national
+        max-width 50%
+        color white
+    
+    .story-large-text            
+        margin-left 10%
+        text-align left
+        font-size 54px
+        font-family: 'Share Tech Mono', monospace;
+        max-width 50%  
+
+    .win-1800s
+        background-color: #353535
+        flex-direction: column
+        display: flex
+        justify-content: center
+
+        .story-text
+            margin-left 10%
+            text-align: left
+            font-family $national
+            max-width 50%
+            color white
+        
+        .story-large-text            
+            margin-left 10%
+            text-align left
+            font-size 54px
+            font-family: 'Share Tech Mono', monospace;
+            max-width 50%  
+
+.slides-container-2000bc
+    // height 21600px   
+    height auto
+    // display flex
+    flex-direction: column
+    justify-content: space-between
+    display: none   
+    background-color: #353535
+    .story-text
+        margin-left 10%
+        text-align: left
+        font-family $national
+        max-width 50%
+        color white
+    
+    .story-large-text            
+        margin-left 10%
+        text-align left
+        font-size 54px
+        font-family: 'Share Tech Mono', monospace;
+        max-width 50%  
+
+    .win-1800s
+        background-color: #353535
+        flex-direction: column
+        display: flex
+        justify-content: center
+
+        .story-text
+            margin-left 10%
+            text-align: left
+            font-family $national
+            max-width 50%
+            color white
+        
+        .story-large-text            
+            margin-left 10%
+            text-align left
+            font-size 54px
+            font-family: 'Share Tech Mono', monospace;
+            max-width 50%  
+
+.button-begin
+    max-width 10%
+    background-color: white
+    height 5rem
+    margin-left 10%
+    cursor pointer
+    display: flex
+    flex-direction: column
+    justify-content: center
+    margin-top 1.5rem
+    visibility: hidden
+
+    p
+        text-transform: uppercase
+        text-align: center
+        margin 0
+        font-family $national
+        font-weight: 600
+        font-size 24px
+    
+.button-begin#begin-2000bc
+    max-width 10%
+    background-color:  #353535
+    color white
+    height 5rem
+    margin-left 10%
+    cursor pointer
+    display: flex
+    flex-direction: column
+    justify-content: center
+    margin-top 1.5rem
+    visibility: hidden
+
+    p
+        text-transform: uppercase
+        text-align: center
+        margin 0
+        font-family $national
+        font-weight: 600
+        font-size 24px    
+
+
+
+
+
+p.white-text
+    color white
 
 .test-div
     height 1px
@@ -174,6 +321,7 @@
   height: 100%;
   overflow: hidden;
 }
+
 
 
 .invisible
