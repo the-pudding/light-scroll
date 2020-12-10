@@ -363,7 +363,7 @@
      progress: function (el, progress) {
        console.log(`progress: ${progress}`)
        console.log(progress)
-       if (progress >= 0.6 && allow1800s) {
+       if (progress >= 0.59 && allow1800s) {
          const order = Promise.resolve()
          order.then(() => {
 
