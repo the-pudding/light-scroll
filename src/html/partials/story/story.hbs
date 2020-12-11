@@ -1,9 +1,9 @@
 <div class='lightbulb-container'>
     <div class='lightbulb-off'>
-        <img src='assets/images/light-off-no-cord.svg'>
+        <img src='assets/images/light-off.svg'>
     </div>
     <div class='lightbulb-on hidden'>
-        <img src='assets/images/light-on-no-cord.svg'>
+        <img src='assets/images/light-on.svg'>
     </div>
     <div class='timer-container'>
         <div class='timer-title'>Time worked</div>
@@ -16,11 +16,11 @@
             <span class='title-seconds'>Seconds</span>
         </div>
     </div>
-    {{!-- <div class='chain-container'> --}}
-    <div class='chain'></div>
+
+    {{!-- <div class='chain'></div>
     <div class='chain-background'>
-    </div>
-    {{!-- </div> --}}
+    </div> --}}
+
 </div>
 
 <div class='story'>
@@ -98,9 +98,15 @@
             {{/if}}
         </div>
         {{/each}}
-        <div class='win-1800s' data-step='step12' data-previous-step='step10'>
-            <p class='story-text'>After a hard day's work, you get to relax in the warm, expensive glow of a delicious
-                candle.</p>
+        <div class='win-1800s' data-step='step18' data-previous-step='step17'>
+            {{!-- <p class='story-text'>After a hard day's work, you get to relax in the warm, expensive glow of a delicious
+                candle.</p> --}}
+            {{!-- <p class='story-text'>We must've just landed in a widely-lauded charter school's classroom for gifted
+                children, because it just got bright in here. And it only took 6 hours!</p> --}}
+            <p class='story-text'>Did we enter a Victorian-era class for gifted children? Because it just got real
+                bright
+                in here. And it only took 6 hours!</p>
+            </p>
         </div>
     </div>
 
@@ -115,7 +121,35 @@
     </div>
     {{/each}}
 
-    <div class='slides-container-2000bc hidden'></div>
+    <div class='slides-container-2000bc hidden'>
+        {{#each doc.story-2000bc}}
+        <div class='{{{class}}}' data-step='{{{data-step}}}' data-previous-step='{{{data-previous-step}}}'>
+            <p class='story-text'>{{{text}}}</p>
+            {{#if brick}}
+            <img class='brick' src='assets/images/brick.png'>
+            {{/if}}
+            {{#if music}}
+            <div class='aspect-ratio'>
+                <iframe class='iframe-vid' width="560" height="315"
+                    src="https://www.youtube.com/embed/QUcTsFe1PVs?start=21" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+            </div>
+            {{/if}}
+            {{#if button-scroll-shortcut}}
+            <div class='button-scroll-shortcut'>
+                <p>Scroller, take the wheel</p>
+            </div>
+            {{/if}}
+        </div>
+        {{/each}}
+
+    </div>
+    <div class='slide-2000bc-final hidden'>
+        <p class='story-text'>Nice work! Just over 2 and a third days of non-stop work. That's about a week and a half
+            of salaried, 8-hour-a-day employment.
+        </p>
+    </div>
 
 
 </div>

@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "enter-view": "^2.0.0",
+    "jump.js": "^1.0.2",
     "lodash.debounce": "^4.0.8",
     "nouislider": "14.2.0"
   },
