@@ -1,14 +1,15 @@
 // Intro slide on/off functions
 
 
-const black = '#353535'
+const black = '#0D0F2A'
+const yellow = '#FFF9E2'
 
 // helpers
 
 
 // Hide formerly black text in white slides that turn dark
 function hideTextOnLightOff(slideNum) {
-  d3.select(`.${slideNum}`).selectAll('p').style('color', black)
+  d3.select(`.${slideNum}`).selectAll('p').style('color', '#0D0F2A')
 }
 
 // show previously-hidden white text on slides that turn white 
@@ -48,7 +49,7 @@ function offIntroSlide() {
 
   d3.select('.intro1')
     .style('background-color', black)
-    .style('color', )
+    .style('color', 'white')
 
   d3.selectAll('.slide')
     .style('background-color', black)
@@ -62,13 +63,13 @@ function offIntroSlide() {
 function onIntroSlide() {
 
   d3.select('.intro1')
-    .style('background-color', 'white')
+    .style('background-color', yellow)
 
   d3.selectAll('.slide')
-    .style('background-color', 'white')
+    .style('background-color', yellow)
 
   d3.select('.slide1')
-    .style('background-color', 'white')
+    .style('background-color', yellow)
 
   bulbOn()
 
@@ -88,7 +89,7 @@ function offStart2020() {
 
 function onStart2020() {
   d3.selectAll('.slide4')
-    .style('background-color', 'white')
+    .style('background-color', yellow)
 
   bulbOn()
 }
@@ -115,8 +116,9 @@ function offResetStart2020() {
 // WINNING 2020s SECTION
 function onWinning2020() {
 
-  d3.select('.slide-start-2020').style('background-color', 'white')
-  d3.select('.slide4').style('background-color', 'white')
+  d3.select('.slide-start-2020').style('background-color', yellow)
+  d3.select('.slide4').style('background-color', yellow)
+  d3.select('p.win-2000s').style('color', '#0F0E2C')
 
   bulbOn()
 }
@@ -142,8 +144,8 @@ function offStart1800() {
 }
 
 function onStart1800() {
-  d3.select('.slide-1800s-intro').style('background-color', 'white')
-  d3.select('.slide-start-2020').style('background-color', 'white')
+  d3.select('.slide-1800s-intro').style('background-color', yellow)
+  d3.select('.slide-start-2020').style('background-color', yellow)
   bulbOn()
 }
 
@@ -152,8 +154,8 @@ function onStart1800() {
 
 function onWinning1800() {
 
-  d3.select('.slides-container-1800s').style('background-color', 'white')
-  d3.select('.win-1800s').style('background-color', 'white')
+  d3.select('.slides-container-1800s').style('background-color', yellow)
+  d3.select('.win-1800s').style('background-color', yellow)
   d3.select('.win-1800s').select('p').style('color', black)
 
   bulbOn()
@@ -177,6 +179,7 @@ function offWinning1800() {
 function offStart2000bc() {
 
   d3.select('.slide-2000bc-intro').style('background-color', black)
+  d3.select('.slides-container-1800s').style('background-color', black)
   d3.select('.slide-2000bc-intro').select('p.story-text').style('color', 'white')
   d3.select('.slide-start-2020').style('background-color', black)
   d3.select('.win-1800s').style('background-color', black)
@@ -186,7 +189,7 @@ function offStart2000bc() {
 
 function onWinning2000bc() {
 
-  d3.select('.slide-2000bc-final').style('background-color', 'white')
+  d3.select('.slide-2000bc-final').style('background-color', yellow)
   d3.select('.slide-2000bc-final').select('p').style('color', black)
 
   bulbOn()

@@ -28,16 +28,39 @@
  let allowReset1800s = false;
  let allow2000bc = false;
 
+ let allowFooter = false
 
  let clickedButton;
 
 
+
+ function secondsToString(seconds) {
+   if (seconds >= 0) {
+     let hrsTens = Math.floor(seconds / 3600 / 10).toString()
+     let hrsOnes = Math.floor(seconds / 3600 % 10).toString()
+
+     let minsTens = Math.floor(((seconds % 3600) / 60 / 10)).toString()
+     let minsOnes = Math.floor(((seconds % 3600) / 60 % 10)).toString()
+
+     let secsTens = Math.floor(((seconds % 86400) % 3600) % 60 / 10).toString()
+     let secsOnes = Math.floor(((seconds % 86400) % 3600) % 60 % 10).toString()
+
+
+     return (hrsTens + hrsOnes + ':' + minsTens + minsOnes + ':' + secsTens + secsOnes)
+   } else {
+     return '00:00:00'
+   }
+
+
+
+ }
 
 
  function setupScrollShortcut() {
    d3.select('.button-scroll-shortcut').on('click', () => {
      d3.select('.slide-2000bc-final').classed('hidden', false)
 
+     allowFooter = true
      jump('.slide-2000bc-final', {
        duration: 5000,
        offset: 0.5
@@ -58,9 +81,14 @@
    currentPixelPosition = document.documentElement.scrollTop || document.body.scrollTop;
    totalSeconds = parseInt(currentPixelPosition - basePixelPosition)
 
-   console.log(totalSeconds)
+   //    console.log(secondsToString(totalSeconds))
 
-   const timeToDisplay = new Date(totalSeconds * 1000).toISOString().substr(11, 8)
+
+
+   //    const timeToDisplay = new Date(totalSeconds * 1000).toISOString().substr(11, 8)
+   const timeToDisplay = secondsToString(totalSeconds)
+
+
    $seconds.text(timeToDisplay)
 
    if (clickedButton === 'begin-2000s') {
@@ -291,6 +319,7 @@
  function updateScrollUp(slide) {
    if (slide === 'slide1') {
      light.offIntroSlide()
+     $html.classed('stop-scrolling', false)
    }
    if (slide === 'slide5') {
      light.on()
@@ -493,10 +522,13 @@
      selector: '.slide-2000bc-final',
      enter(el) {
        light.onWinning2000bc()
+       if (allowFooter)
+         d3.select('.pudding-footer').style('display', 'block')
      },
      exit(el) {
        console.log('exiting!!')
        light.offWinning2000bc()
+       d3.select('.pudding-footer').style('display', 'none')
      },
      offset: 0.4, // enter at top of viewport
      once: false, // trigger just once
@@ -580,8 +612,8 @@
      .style('height', `${calculateChainBackgroundHeight(displaywidth)}`)
      .style('background-color', 'white')
 
-   d3.select('.slide')
-     .style('background-color', '#353535')
+   //    d3.select('.slide')
+   //      .style('background-color', '#353535')
 
 
    d3.select('.lightbulb-off')
@@ -622,9 +654,6 @@
      .style('height', `${displayHeight}px`)
 
 
-
-   //    d3.select('[data-step="slide6"]')
-   //      .style('height', `1px`)
  }
 
  function init() {

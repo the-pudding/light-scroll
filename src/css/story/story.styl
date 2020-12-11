@@ -25,6 +25,13 @@
 // at 1300px, 30.5%
 
 // lightbulb chain max remove from height: 45%
+
+body
+    background-color #0D0F2A
+
+.pudding-footer    
+    display: none
+
 .chain
     background-image: url('/assets/images/chain.png')
     background-position: center center
@@ -50,13 +57,16 @@
     // height 100%
     margin 0 auto
     margin-left 10%
+    @media (max-width:550px) 
+        display none
 
 
 .intro1
     display: flex
     flex-direction: column
     justify-content: center
-    background-color: #353535
+    background-color: #0D0F2A
+
     .intro-text
         margin 0 
         font-size: 64px
@@ -144,12 +154,18 @@
         display flex
         flex-direction: column
         justify-content: center
+        background-color: #FFF9E2
 
         .story-text
             margin-left 10%
             text-align: left
             font-family $national
             max-width 50%
+            color rgba(13, 15, 42, 0.5)
+            font-size 24px
+            @media (max-width: 550px)
+                font-size 18px
+
         
         .story-large-text            
             margin-left 10%
@@ -157,30 +173,37 @@
             font-size 54px
             font-family: 'Share Tech Mono', monospace;
             max-width 50%
+            color #0D0F2A
+            @media (max-width: 550px)
+                font-size 24px            
         
 
     .slide-dark
         display flex
         flex-direction: column
         justify-content: center
-        background-color: #353535
+        background-color: #0D0F2A
 
         .story-text
             margin-left 10%
             text-align: left
             font-family $national
-            color white
+            color #FBF5FA
             max-width 50%
+            @media (max-width: 550px)
+                font-size 18px
+                margin-bottom 0
         
         .story-large-text            
             margin-left 10%
             text-align left
             font-size 54px
             font-family: 'Share Tech Mono', monospace;
-            color white
+            color #FBF5FA
             max-width 50%
             @media (max-width: 550px)
-                font-size: 36px
+                font-size: 30px
+                margin-bottom 0
 
         .black-text
             color black
@@ -196,6 +219,9 @@
             text-align: left
             font-family $national
             max-width 50%
+            font-size 24px
+            @media (max-width: 550px)
+                font-size 18px            
         
         .story-large-text            
             margin-left 10%
@@ -208,13 +234,16 @@
         display flex
         flex-direction: column
         justify-content: center
-        background-color: white
+        background-color: #FFF9E2
 
         .story-text
             margin-left 10%
             text-align: left
             font-family $national
             max-width 50%
+            font-size 24px
+            @media (max-width: 550px)
+                font-size 18px            
         
         .story-large-text            
             margin-left 10%
@@ -228,13 +257,15 @@
         display: none     
 
 
-    .win-2000s
-        color white
+.win-2000s
+    font-size 24px
+    color #0F0E2C
+    @media (max-width: 550px)
+        font-size 18px    
 
-
-    .slide-start-2020
-        p.win-2000s
-            color #353535
+.slide-start-2020
+    p.win-2000s
+        color #0F0E2C
 
 
 .slides-container-1800s
@@ -244,7 +275,7 @@
     flex-direction: column
     justify-content: space-between
     display: none   
-    background-color: #353535
+    background-color: #0d0f2a
 
     .slide-1800s
         display: flex
@@ -255,6 +286,9 @@
             font-family $national
             max-width 50%
             color white
+            font-size 24px
+            @media (max-width: 550px)
+                font-size 18px            
         
         .story-large-text            
             margin-left 10%
@@ -287,11 +321,13 @@ span.hands-link
     max-width 30%
     height auto
     margin-left 10%    
+    @media (max-width: 550px)
+        max-width 50%
 
 
 
 .win-1800s
-    background-color: #353535
+    background-color: #0d0f2a
     flex-direction: column
     display: flex
     justify-content: center
@@ -302,6 +338,9 @@ span.hands-link
         font-family $national
         max-width 50%
         color white
+        font-size 24px
+        @media (max-width: 550px)
+            font-size 18px        
     
     .story-large-text            
         margin-left 10%
@@ -317,7 +356,7 @@ span.hands-link
     flex-direction: column
     justify-content: flex-start
     display: none   
-    background-color: #353535
+    background-color: #0d0f2a
     .slide-2000bc
         display: flex
         flex-direction: column
@@ -327,7 +366,10 @@ span.hands-link
             font-family $national
             max-width 50%
             color white
-        
+            font-size 24px
+            @media (max-width: 550px)
+                font-size 18px
+                        
         .story-large-text            
             margin-left 10%
             text-align left
@@ -336,7 +378,7 @@ span.hands-link
             max-width 50%  
 
         .win-1800s
-            background-color: #353535
+            background-color: #0d0f2a
             flex-direction: column
             display: flex
             justify-content: center
@@ -376,7 +418,7 @@ span.hands-link
 
 
 .slide-2000bc-final
-    background-color: #353535
+    background-color: #0d0f2a
     flex-direction: column
     display: flex
     justify-content: center
@@ -386,7 +428,10 @@ span.hands-link
         text-align: left
         font-family $national
         max-width 50%
-        color white
+        color #0F0E2C
+        font-size 24px
+        @media (max-width: 550px)
+            font-size 18px        
     
     .story-large-text            
         margin-left 10%
@@ -417,6 +462,7 @@ span.hands-link
         font-family $national
         font-weight: 600
         font-size 24px
+        color #0d0f2a
     
 .button-begin#begin-2000bc
     max-width 10%

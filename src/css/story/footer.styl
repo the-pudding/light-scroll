@@ -1,8 +1,11 @@
 footer.pudding-footer
 	padding 3rem 1rem
-	border-top 4px solid $black
+	// border-top 4px solid $black
 	font-family $sans
 	margin-top 3rem
+
+    a
+		color white
 
 	.footer-recirc
 		max-width 65rem
@@ -28,6 +31,7 @@ footer.pudding-footer
 			set-type-size(large, false)
 			line-height 1
 			font-weight 700
+			color #ffffff
 			padding-left 0.5rem
 			// padding-top 1rem
 
@@ -75,7 +79,7 @@ footer.pudding-footer
 					padding-left 0.5rem
 					padding-top 0.1rem
 					line-height 1
-					color $gray
+					color #ffffff
 					+mq('bp-4')
 						set-type-size(large)
 
@@ -93,7 +97,7 @@ footer.pudding-footer
 		&__about
 			order 0
 			width 100%
-			color $gray
+			color #ffffff
 			display flex
 			flex-direction column
 			+mq('bp-5')
@@ -106,3 +110,9 @@ footer.pudding-footer
 			svg
 				width 12rem
 				margin-bottom 0.5rem
+				fill white
+
+.footer-company__description
+	a
+		color white
+		border-bottom: 1px solid white
