@@ -633,6 +633,7 @@
 
    order.then(() => {
        resize()
+       light.bulbOff()
      })
      .then(() => {
        setupEnterView()
@@ -640,6 +641,9 @@
      .then(() => {
        setupBeginButton(timer)
        setupScrollShortcut()
+     })
+     .then(() => {
+       light.offIntroSlide()
      })
 
 

@@ -210,6 +210,9 @@ function offWinning2000bc() {
 
 
 export default {
+  bulbOff,
+  bulbOn,
+
   offIntroSlide,
   onIntroSlide,
 
