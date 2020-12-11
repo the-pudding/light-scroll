@@ -1,7 +1,50 @@
 /* CUSTOM STORY STYLE */
 
 
+// lightbulb image ratio : 500px x 866px
 
+// At window size of 1439px, white background ratio is 29% of container height
+// At window size of 1022px, white background ratio is 35% of container height
+// At window size of 800px, white background ratio is 38% of container height
+// At window size of 600px, white background ratio is 41% of container height
+// At window size of 400px, white background ratio is 44% of container height
+// At window size of 200px, white background ratio is 47% of container height
+
+
+// at 300px, 45.5%
+// at 400px, 44.5%
+// at 500px, 43%
+// at 600px, 42%
+// at 700px, 41%
+// at 800px, 39.5%
+// at 900px, 38%
+// at 1000px, 36.5%
+// at 1100px, 35%,
+// at 1200px, 33.5%
+// at 1300px, 32%
+// at 1300px, 30.5%
+
+// lightbulb chain max remove from height: 45%
+.chain
+    background-image: url('/assets/images/chain.png')
+    background-position: center center
+    background-repeat: repeat-y
+    position: absolute;
+    right: 20.5%;
+    top 34%
+    width: 2%;
+    height: 900px;
+    background-size: 6px;
+    z-index: 3
+    transform translate(0,-45%)
+
+.chain-background
+    z-index 8
+    width 100%
+    background-color: white
+    // height 29%
+    position: absolute
+//ratio of chain link to container: 0.0202224469
 .sleep-schedule
     max-width 40rem
     // height 100%
@@ -42,6 +85,7 @@
             top 0
             right 0
             width 80%
+            z-index: 11
 
 .timer-container
         position absolute

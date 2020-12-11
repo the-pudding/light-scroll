@@ -439,6 +439,63 @@
 
  }
 
+
+ function calculateChainBackgroundHeight(width) {
+
+
+   // at 300px, 45.5%
+   // at 400px, 44.5%
+   // at 500px, 43%
+   // at 600px, 42%
+   // at 700px, 41%
+   // at 800px, 39.5%
+   // at 900px, 38%
+   // at 1000px, 36.5%
+   // at 1100px, 35%,
+   // at 1200px, 33.5%
+   // at 1300px, 32%
+   // at 1300px, 30.5%
+
+
+   if (width <= 200) {
+     return '47%'
+   } else if (width > 200 && width <= 350) {
+     return '45.5%'
+   } else if (width > 350 && width <= 450) {
+     return '44.5%'
+   } else if (width > 450 && width <= 550) {
+     return '43%'
+   } else if (width > 550 && width <= 650) {
+     return '42%'
+   } else if (width > 650 && width <= 750) {
+     return '41%'
+   } else if (width > 750 && width <= 850) {
+     return '39.5%'
+   } else if (width > 850 && width <= 950) {
+     return '38%'
+   } else if (width > 950 && width <= 1050) {
+     return '36.5%'
+   } else if (width > 1050 && width <= 1150) {
+     return '35%'
+   } else if (width > 1150 && width <= 1250) {
+     return '33.5%'
+   } else if (width > 1200 && width <= 1350) {
+     return '32%'
+   } else if (width > 1350 && width <= 1450) {
+     return '30.5%'
+   } else if (width > 1450 && width <= 1550) {
+     return '29%'
+   } else if (width > 1550 && width <= 1650) {
+     return '27.5%'
+   } else if (width > 1650 && width <= 1750) {
+     return '26%'
+   } else if (width > 1750 && width <= 1850) {
+     return '24.5%'
+   } else if (width > 1750 && width <= 1850) {
+     return '24.5%'
+   }
+ }
+
  function resize() {
 
 
@@ -449,6 +506,11 @@
 
    d3.select('.lightbulb-container')
      .style('height', `${displayHeight}px`)
+
+
+   d3.select('.chain-background')
+     .style('height', `${calculateChainBackgroundHeight(displaywidth)}`)
+     .style('background-color', 'white')
 
    d3.select('.slide')
      .style('background-color', '#353535')
