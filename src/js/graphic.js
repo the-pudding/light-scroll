@@ -33,6 +33,8 @@
  let clickedButton;
 
 
+ //  Helper functions
+
 
  function secondsToString(seconds) {
    if (seconds >= 0) {
@@ -51,9 +53,15 @@
      return '00:00:00'
    }
 
-
-
  }
+
+
+
+ function show2000bc() {
+   d3.select('.slide-2000bc-intro').classed('hidden', false)
+   d3.select('.slides-container-2000bc').classed('hidden', false)
+ }
+
 
 
  function setupScrollShortcut() {
@@ -70,26 +78,15 @@
    })
  }
 
- function show2000bc() {
-   d3.select('.slide-2000bc-intro').classed('hidden', false)
-   d3.select('.slides-container-2000bc').classed('hidden', false)
- }
-
 
  function startScrollListening(e) {
 
    currentPixelPosition = document.documentElement.scrollTop || document.body.scrollTop;
    totalSeconds = parseInt(currentPixelPosition - basePixelPosition)
-
-   //    console.log(secondsToString(totalSeconds))
-
-
-
-   //    const timeToDisplay = new Date(totalSeconds * 1000).toISOString().substr(11, 8)
    const timeToDisplay = secondsToString(totalSeconds)
-
-
    $seconds.text(timeToDisplay)
+
+
 
    if (clickedButton === 'begin-2000s') {
 
@@ -241,6 +238,7 @@
      } else if (clickedButton === 'begin-1800s') {
 
        allow1800s = false
+       allowReset1800s = true
        //show timer
        timer.resetTimer()
        timer.showTimer()
@@ -382,18 +380,21 @@
 
        light.offStart2020()
 
+
      },
      exit(el) {
-       const thisSlide = d3.select(el).attr('data-step')
-       console.log(`exit: ${thisSlide}`)
+       //    const thisSlide = d3.select(el).attr('data-step')
+
        light.onStart2020()
 
 
      },
      progress: function (el, progress) {
+
        if (progress === 1) {
          const order = Promise.resolve()
          order.then(() => {
+             console.log('progress is 1')
 
              $html.classed('stop-scrolling', true)
            })
@@ -401,11 +402,16 @@
              d3.select('#begin-2000s').style('visibility', 'visible')
            })
        } else if (allowReset2000) {
+         allow1800s = false
+
+         d3.select('.slide-1800s-intro').style('display', 'none')
          light.offResetStart2020()
+
          $firstCheckpointTitle.transition().style('opacity', 1)
          $firstCheckpointText.transition().style('opacity', 1)
          $win2000Text.transition().style('opacity', 0)
-         d3.select('.slide-1800s-intro').classed('hidden', true)
+         //  d3.select('.slide-1800s-intro').classed('hidden', true)
+         d3.select('.slide-1800s-intro').style('display', 'none')
 
 
          timer.hideTimer()
@@ -422,31 +428,33 @@
 
    // Setting up 1800s start
 
-
+   let testRestart = false
    enterView({
      selector: '.begin-screen-1800',
      enter(el) {
        if (allow1800s) {
-
          light.offStart1800()
+         d3.select('.slides-container-1800s').style('display', 'none')
        }
+       d3.select('.slide-1800s-intro').style('background-color', '#0D0F2A')
+       d3.select('.slide-start-2020').style('background-color', '#0D0F2A')
+       light.bulbOff()
 
 
      },
      exit(el) {
-       const thisSlide = d3.select(el).attr('data-step')
+
        light.onStart1800()
-
-
+       d3.select('.slides-container-1800s').style('display', 'none')
 
      },
      progress: function (el, progress) {
        console.log(progress)
 
+
        if (progress >= 0.59 && allow1800s) {
          const order = Promise.resolve()
          order.then(() => {
-
              $html.classed('stop-scrolling', true)
            })
            .then(() => {
@@ -454,16 +462,11 @@
              allowReset1800s = true
            })
        } else if (progress < 0.59 && allowReset1800s) {
-         timer.hideTimer()
+         d3.select('.slides-container-1800s').style('display', 'none')
          d3.select('#begin-1800s').style('visibility', 'visible')
-         $html.classed('stop-scrolling', true)
          allowReset1800s = false
-         console.log('hiding timer')
-
+         timer.hideTimer()
        }
-
-
-
      },
      offset: 0.4, // enter at top of viewport
      once: false, // trigger just once
@@ -493,8 +496,8 @@
 
      },
      progress: function (el, progress) {
-       console.log(`progress: ${progress}`)
-       console.log(progress)
+       console.log('2000bc')
+
        if (progress >= 0.59 && allow2000bc) {
          const order = Promise.resolve()
          order.then(() => {
