@@ -24,13 +24,19 @@
  let allowReset2000 = false;
 
 
- let allow1800s = false
+ let allow1800sStart = false
+ let allow1800sWin = false
  let allowReset1800s = false;
- let allow2000bc = false;
 
+
+ let allow2000bcStart = false
+ let allowReset2000bc = false;
+ let allowWin2000bc = false;
  let allowFooter = false
 
  let clickedButton;
+
+ let allowTimerUpdate = true
 
 
  //  Helper functions
@@ -55,11 +61,25 @@
 
  }
 
+ function getTimeToDisplay() {
+   currentPixelPosition = document.documentElement.scrollTop || document.body.scrollTop;
+   totalSeconds = parseInt(currentPixelPosition - basePixelPosition)
+   const timeToDisplay = secondsToString(totalSeconds)
+   return timeToDisplay
+ }
+
 
 
  function show2000bc() {
    d3.select('.slide-2000bc-intro').classed('hidden', false)
+   d3.select('slide-2000bc-intro').style('display', 'flex')
    d3.select('.slides-container-2000bc').classed('hidden', false)
+ }
+
+ function hide2000bc() {
+   d3.select('.slide-2000bc-intro').classed('hidden', true)
+   d3.select('.slides-container-2000bc').classed('hidden', true)
+   console.log('hiding 2000 bc')
  }
 
 
@@ -81,39 +101,52 @@
 
  function startScrollListening(e) {
 
-   currentPixelPosition = document.documentElement.scrollTop || document.body.scrollTop;
-   totalSeconds = parseInt(currentPixelPosition - basePixelPosition)
-   const timeToDisplay = secondsToString(totalSeconds)
-   $seconds.text(timeToDisplay)
-
-
-
    if (clickedButton === 'begin-2000s') {
+     allowTimerUpdate = true
+
+     if (allowTimerUpdate) {
+       $seconds.text(getTimeToDisplay())
+     }
 
      if (totalSeconds >= 2) {
        win2000s()
        allow2000s = true
      } else if (totalSeconds < 2 && allow2000s) {
+       console.log('from scroll')
        unWin2000s()
      }
 
    } else if (clickedButton === 'begin-1800s') {
-     if (totalSeconds >= (21600 - displayHeight * 0.75)) {
-       win1800s()
-       show2000bc()
-     } else if (totalSeconds < 0) {
-       timer.hideTimer()
-       timer.resetTimer()
+     allowTimerUpdate = true
+
+
+
+
+     if (allowTimerUpdate) {
+       $seconds.text(getTimeToDisplay())
      }
-   } else if (clickedButton === 'begin-2000bc') {
-     //  if (totalSeconds >= (205200)) {
-     //    light.onWinning2000bc()
-     //  } else if (totalSeconds < (205200 - displayHeight * 0.75)) {
-     //    light.offWinning2000bc()
-     //  } else 
      if (totalSeconds < 0) {
        timer.hideTimer()
        timer.resetTimer()
+       allow1800sWin = false
+     }
+     if (totalSeconds > 2) {
+       allow1800sWin = true
+     }
+   } else if (clickedButton === 'begin-2000bc') {
+     console.log(totalSeconds)
+     allowTimerUpdate = true
+     d3.select('.slide-2000bc-final').classed('hidden', false)
+     if (allowTimerUpdate) {
+       $seconds.text(getTimeToDisplay())
+     }
+
+     if (totalSeconds < 0) {
+       timer.hideTimer()
+       timer.resetTimer()
+     }
+     if (totalSeconds > 2) {
+       allowWin2000bc = true
      }
    }
 
@@ -132,15 +165,14 @@
    // stop listening to scroll to freeze timer
    document.removeEventListener('scroll', startScrollListening)
 
-   allow1800s = true
+   allow1800sStart = true
 
  }
 
 
  function unWin2000s() {
 
-
-   console.log('unwinning')
+   allow1800sStart = false
    light.offWinning2020()
 
    $firstCheckpointTitle.transition().style('opacity', 1)
@@ -158,7 +190,7 @@
    light.onWinning1800()
    // // stop listening to scroll to freeze timer
    document.removeEventListener('scroll', startScrollListening)
-   allow2000bc = true
+   allow2000bcStart = true
 
    // allow1800s = true
 
@@ -166,12 +198,11 @@
 
 
  function unWin1800s() {
-   //    console.log('stopping scroll listening')
-   light.offWinning1800()
 
-   // $firstCheckpointTitle.transition().style('opacity', 0)
-   // $firstCheckpointText.transition().style('opacity', 0)
-   // $win2000Text.transition().style('opacity', 1)
+   light.offWinning1800()
+   d3.select('.slide-2000bc-intro').style('display', 'none')
+   d3.select('.slide-container-2000bc').style('display', 'none')
+   allow2000bcStart = false
 
    // // stop listening to scroll to freeze timer
    document.addEventListener('scroll', startScrollListening)
@@ -190,12 +221,7 @@
      //  timer.stopTimer()
    } else if (section === 'begin-2000s' && totalSeconds < 2) {
      unWin2000s()
-   } else if (section === 'begin-1800s' && totalSeconds >= 216000) {
-     win1800s()
    }
-   //    else if (section === 'begin-1800s' && totalSeconds >= 216000) {
-   //     unWin1800s()
-   //   }
 
  }
 
@@ -237,7 +263,7 @@
 
      } else if (clickedButton === 'begin-1800s') {
 
-       allow1800s = false
+       allow1800sWin = false
        allowReset1800s = true
        //show timer
        timer.resetTimer()
@@ -264,8 +290,10 @@
 
 
      } else if (clickedButton === 'begin-2000bc') {
+       d3.select('.slide-2000bc-final').style('display', 'flex')
 
-       allow2000bc = false
+       allowReset2000bc = true
+       allowWin2000bc = false
        //show timer
        timer.resetTimer()
        timer.showTimer()
@@ -273,7 +301,7 @@
        //hide button
        d3.select(this).style('visibility', 'hidden')
 
-       light.offStart1800()
+       light.offStart2000bc()
 
        //restart scroll
        $html.classed('stop-scrolling', false)
@@ -304,7 +332,7 @@
 
    }
    if (slide === 'slide5') {
-     light.offStart2020()
+     //  light.offStart2020()
    }
    if (slide === 'slide6') {
      //  console.log('slide 6')
@@ -317,6 +345,8 @@
  function updateScrollUp(slide) {
    if (slide === 'slide1') {
      light.offIntroSlide()
+     timer.hideTimer()
+     timer.resetTimer()
      $html.classed('stop-scrolling', false)
    }
    if (slide === 'slide5') {
@@ -377,82 +407,86 @@
    enterView({
      selector: '.slide-start-2020',
      enter(el) {
-
        light.offStart2020()
-
-
      },
      exit(el) {
-       //    const thisSlide = d3.select(el).attr('data-step')
-
        light.onStart2020()
-
-
      },
      progress: function (el, progress) {
 
        if (progress === 1) {
          const order = Promise.resolve()
          order.then(() => {
-             console.log('progress is 1')
-
              $html.classed('stop-scrolling', true)
            })
            .then(() => {
              d3.select('#begin-2000s').style('visibility', 'visible')
            })
        } else if (allowReset2000) {
-         allow1800s = false
+         allow1800sStart = false
+         allow1800sWin = false
+         allow2000bcStart = false
 
          d3.select('.slide-1800s-intro').style('display', 'none')
+         d3.select('.slide-2000bc-intro').style('display', 'none')
+         d3.select('.slides-container-1800s').style('display', 'none')
+         d3.select('.slides-container-2000bc').style('display', 'none')
+         d3.select('.slide-2000bc-final').style('display', 'none')
          light.offResetStart2020()
 
          $firstCheckpointTitle.transition().style('opacity', 1)
          $firstCheckpointText.transition().style('opacity', 1)
          $win2000Text.transition().style('opacity', 0)
-         //  d3.select('.slide-1800s-intro').classed('hidden', true)
-         d3.select('.slide-1800s-intro').style('display', 'none')
-
 
          timer.hideTimer()
        }
 
-
-
      },
-     offset: 0, // enter at top of viewport
-     once: false, // trigger just once
+     offset: 0,
+     once: false,
    });
 
 
 
    // Setting up 1800s start
 
-   let testRestart = false
-   enterView({
-     selector: '.begin-screen-1800',
-     enter(el) {
-       if (allow1800s) {
+   // Set up intro screen functionality
+   function enterIntroScreen(screen) {
+     if (screen === 'slide6') {
+       if (allow1800sStart) {
+         allow1800sWin = false
          light.offStart1800()
          d3.select('.slides-container-1800s').style('display', 'none')
        }
        d3.select('.slide-1800s-intro').style('background-color', '#0D0F2A')
        d3.select('.slide-start-2020').style('background-color', '#0D0F2A')
        light.bulbOff()
+     } else if (screen === 'slide19') {
+       if (allow2000bcStart) {
+         light.offStart2000bc()
+       }
+     }
+   }
 
-
-     },
-     exit(el) {
+   function exitIntroScreen(screen) {
+     if (screen === 'slide6') {
+       allow1800sWin = false
 
        light.onStart1800()
        d3.select('.slides-container-1800s').style('display', 'none')
+       d3.select('.slide-2000bc-intro').style('display', 'none')
+     } else if (screen === 'slide19') {
+       light.onStart2000bc()
+       light.bulbOn()
+       allow2000bcStart = true
+       allowWin2000bc = false
+     }
+   }
 
-     },
-     progress: function (el, progress) {
+   function handleIntroProgress(screen, progress) {
+     if (screen === 'slide6') {
        console.log(progress)
-
-
-       if (progress >= 0.59 && allow1800s) {
+       if (progress >= 0.595 && allow1800sStart) {
          const order = Promise.resolve()
          order.then(() => {
              $html.classed('stop-scrolling', true)
@@ -460,105 +494,190 @@
            .then(() => {
              d3.select('#begin-1800s').style('visibility', 'visible')
              allowReset1800s = true
+             allow1800sStart = false
            })
        } else if (progress < 0.59 && allowReset1800s) {
          d3.select('.slides-container-1800s').style('display', 'none')
-         d3.select('#begin-1800s').style('visibility', 'visible')
+         //  d3.select('#begin-1800s').style('visibility', 'visible')
          allowReset1800s = false
+         allow1800sWin = false
+         allow1800sStart = true
          timer.hideTimer()
        }
-     },
-     offset: 0.4, // enter at top of viewport
-     once: false, // trigger just once
-   });
-
-
-
-
-
-
-   // Setting up 2000bc start
-
-
-   enterView({
-     selector: '.begin-screen-2000bc',
-     enter(el) {
-       if (allow2000bc) {
-         light.offStart2000bc()
-       }
-
-
-     },
-     exit(el) {
-       const thisSlide = d3.select(el).attr('data-step')
-
-
-
-     },
-     progress: function (el, progress) {
-       console.log('2000bc')
-
-       if (progress >= 0.59 && allow2000bc) {
+     } else if (screen === 'slide19') {
+       if (progress >= 0.595 && allow2000bcStart) {
          const order = Promise.resolve()
          order.then(() => {
-             console.log('2000BC stop scrolling')
+             d3.select('.slide-2000bc-final').classed('hidden', true)
              $html.classed('stop-scrolling', true)
            })
            .then(() => {
              d3.select('#begin-2000bc').style('visibility', 'visible')
+             allowFooter = true
+             allowReset2000bc = true
+             allow2000bcStart = false
            })
-       } else {
-         console.log('hiding timer')
-         //  timer.hideTimer()
+       } else if (progress < 0.595 && allowReset2000bc) {
+         d3.select('.slides-container-2000bc').style('display', 'none')
+         d3.select('.slide-2000bc-final').style('display', 'none')
+         allowFooter = false
+         allowReset2000bc = false
+         allowWin2000bc = false
+         allow2000bcStart = true
+         timer.hideTimer()
+         timer.hideTimer()
+       }
+
+     }
+   }
+
+   enterView({
+     selector: '.begin-screen',
+     enter(el) {
+       console.log(`begin-screen enter`)
+       console.log(el)
+       const thisSlide = d3.select(el).attr('data-step')
+       enterIntroScreen(thisSlide)
+
+     },
+     exit(el) {
+       console.log(`begin-screen exit`)
+       console.log(el)
+       const thisSlide = d3.select(el).attr('data-step')
+       exitIntroScreen(thisSlide)
+     },
+     progress: function (el, progress) {
+       const thisSlide = d3.select(el).attr('data-step')
+       handleIntroProgress(thisSlide, progress)
+     },
+     offset: 0.4, // enter at top of viewport
+     once: false, // trigger just once
+   });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   function enterWinScreen(screen) {
+     if (screen === 'step18') {
+
+       if (allow1800sWin) {
+         console.log('running enter step18')
+         light.onWinning1800()
+         d3.select('.slide-2000bc-intro').style('display', 'flex')
+         win1800s()
+         show2000bc()
+         allow2000bcStart = true
+
+
+       }
+     } else if (screen === 'step39') {
+       if (allowWin2000bc) {
+         light.onWinning2000bc()
+         if (allowFooter)
+           d3.select('.pudding-footer').style('display', 'block')
+       }
+     }
+   }
+
+   function exitWinScreen(screen) {
+     if (screen === 'step18') {
+
+       if (allow1800sWin) {
+         console.log('running exit step18')
+         d3.select('.slide-2000bc-intro').style('display', 'none')
+         light.offWinning1800()
+         unWin1800s()
+         hide2000bc()
        }
 
 
+     } else if (screen === 'step39') {
 
-     },
-     offset: 0.4, // enter at top of viewport
-     once: false, // trigger just once
-   });
-
-
-
-   enterView({
-     selector: '.slide-2000bc-final',
-     enter(el) {
-       light.onWinning2000bc()
-       if (allowFooter)
-         d3.select('.pudding-footer').style('display', 'block')
-     },
-     exit(el) {
-       console.log('exiting!!')
        light.offWinning2000bc()
        d3.select('.pudding-footer').style('display', 'none')
+
+     }
+   }
+
+   enterView({
+     selector: '.win-screen',
+     enter(el) {
+       console.log(`win-screen enter`)
+       console.log(el)
+       const thisSlide = d3.select(el).attr('data-step')
+       enterWinScreen(thisSlide)
+       console.log(thisSlide)
+       console.log(`allowTimerUpdate: ${allowTimerUpdate}`)
      },
-     offset: 0.4, // enter at top of viewport
+     exit(el) {
+       console.log(`win-screen exit`)
+       console.log(el)
+       const thisSlide = d3.select(el).attr('data-step')
+       exitWinScreen(thisSlide)
+     },
+     progress: function (el, progress) {},
+     offset: 0, // enter at top of viewport
      once: false, // trigger just once
    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   //    Hide/show footer on scroll
+   enterView({
+     selector: 'footer',
+     enter(el) {
+       timer.hideTimer()
+     },
+     exit(el) {
+       timer.showTimer()
+     },
+     progress: function (el, progress) {},
+     offset: 0.05, // enter at top of viewport
+     once: false, // trigger just once
+   });
+
+
+
+
+
+
 
 
 
 
  }
 
-
  function calculateChainBackgroundHeight(width) {
-
-
-   // at 300px, 45.5%
-   // at 400px, 44.5%
-   // at 500px, 43%
-   // at 600px, 42%
-   // at 700px, 41%
-   // at 800px, 39.5%
-   // at 900px, 38%
-   // at 1000px, 36.5%
-   // at 1100px, 35%,
-   // at 1200px, 33.5%
-   // at 1300px, 32%
-   // at 1300px, 30.5%
-
 
    if (width <= 200) {
      return '47%'
@@ -600,9 +719,6 @@
  }
 
  function resize() {
-
-
-
 
    displayHeight = window.innerHeight;
    displaywidth = window.innerWidth;
@@ -687,4 +803,4 @@
  export default {
    init,
    resize
- };
+ }
