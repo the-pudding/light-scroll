@@ -25,6 +25,13 @@
 
 <div class='story'>
     <div class='intro1'>
+        <div class='byline-container'>
+            <p>Story + Code by
+                <a href="https://pudding.cool/author/ilia-blinderman"><strong>Ilia Blinderman</strong></a>
+            </p>
+            <p>
+                Design by <a href="https://pudding.cool/author/jan-diehm"><strong>Jan Diehm</strong></a></p>
+        </div>
         <p class='intro-text'>Whoa, dark in here! Better turn the light on. </p>
         <p class='scroll-prompt'>Scroll down to turn the light on</p>
     </div>
@@ -49,9 +56,17 @@
 
         {{!-- Add begin button to kick off scroll section --}}
         {{#if button-begin-2000s}}
-        <div class='button-begin' id='begin-2000s'>
-            <p>begin</p>
+
+        <div class='button-begin-container'>
+
+            <div class='button-begin' id='begin-2000s'>
+                {{!-- <div class='button-begin-background'></div> --}}
+                <p>begin</p>
+            </div>
+            <div class='button-begin-background'></div>
         </div>
+
+
         {{/if}}
 
 
@@ -99,7 +114,8 @@
         </div>
         {{/each}}
         <div class='win-1800s win-screen' data-step='step18' data-previous-step='step17'>
-            {{!-- <p class='story-text'>After a hard day's work, you get to relax in the warm, expensive glow of a delicious
+            {{!-- <p class='story-text'>After a hard day's work, you get to relax in the warm, expensive glow of a
+                delicious
                 candle.</p> --}}
             {{!-- <p class='story-text'>We must've just landed in a widely-lauded charter school's classroom for gifted
                 children, because it just got bright in here. And it only took 6 hours!</p> --}}
@@ -146,9 +162,18 @@
 
     </div>
     <div class='slide-2000bc-final  win-screen hidden' data-step='step39'>
-        <p class='story-text'>Nice work! Just over 2 and a third days of non-stop work. That's about a week and a half
-            of salaried, 8-hour-a-day employment.
+        <p class='story-text'>Nice work! Just over 2 and a third days of non-stop labor; that's about a week and a half
+            of salaried, 8-hour-a-day employment. You can rest easy knowing that while you've read this story,
+            you've earned hundreds of hours of artificial illumination. I hereby induct you into the International
+            Association of Time Savers.
         </p>
+
+        {{#each doc.method}}
+        <p class='method'><span class='method-title'>Method: </span>
+            {{{text}}}
+        </p>
+        {{/each}}
+
     </div>
 
 

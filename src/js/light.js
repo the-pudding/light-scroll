@@ -157,6 +157,7 @@ function offStart1800() {
   d3.select('.slide-1800s-intro').select('p.story-text').style('color', 'white')
 
   d3.select('.slide-start-2020').style('background-color', black)
+  d3.select('.slide4').style('background-color', black)
 
   bulbOff()
 }
@@ -167,6 +168,9 @@ function onStart1800() {
 
   d3.select('.slide-1800s-intro').style('background-color', yellow)
   d3.select('.slide-start-2020').style('background-color', yellow)
+  d3.select('.slide4').select('.story-text').style('color', yellow)
+  d3.select('.slide4').style('background-color', yellow)
+
   bulbOn()
 }
 

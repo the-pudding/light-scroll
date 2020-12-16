@@ -38,6 +38,8 @@
 
  let allowTimerUpdate = true
 
+ const STOPTHRESHOLD = 0.595
+
 
  //  Helper functions
 
@@ -408,12 +410,13 @@
      selector: '.slide-start-2020',
      enter(el) {
        light.offStart2020()
+
      },
      exit(el) {
        light.onStart2020()
      },
      progress: function (el, progress) {
-
+       console.log(progress)
        if (progress === 1) {
          const order = Promise.resolve()
          order.then(() => {
@@ -438,6 +441,8 @@
          $firstCheckpointText.transition().style('opacity', 1)
          $win2000Text.transition().style('opacity', 0)
 
+         d3.select('.slide4').select('.story-text').style('color', '#0D0F2A')
+
          timer.hideTimer()
        }
 
@@ -456,6 +461,7 @@
        if (allow1800sStart) {
          allow1800sWin = false
          light.offStart1800()
+
          d3.select('.slides-container-1800s').style('display', 'none')
        }
        d3.select('.slide-1800s-intro').style('background-color', '#0D0F2A')
@@ -485,8 +491,8 @@
 
    function handleIntroProgress(screen, progress) {
      if (screen === 'slide6') {
-       console.log(progress)
-       if (progress >= 0.595 && allow1800sStart) {
+       //    console.log(progress)
+       if (progress >= STOPTHRESHOLD && allow1800sStart) {
          const order = Promise.resolve()
          order.then(() => {
              $html.classed('stop-scrolling', true)
@@ -496,7 +502,7 @@
              allowReset1800s = true
              allow1800sStart = false
            })
-       } else if (progress < 0.59 && allowReset1800s) {
+       } else if (progress < STOPTHRESHOLD && allowReset1800s) {
          d3.select('.slides-container-1800s').style('display', 'none')
          //  d3.select('#begin-1800s').style('visibility', 'visible')
          allowReset1800s = false
@@ -505,7 +511,7 @@
          timer.hideTimer()
        }
      } else if (screen === 'slide19') {
-       if (progress >= 0.595 && allow2000bcStart) {
+       if (progress >= STOPTHRESHOLD && allow2000bcStart) {
          const order = Promise.resolve()
          order.then(() => {
              d3.select('.slide-2000bc-final').classed('hidden', true)
@@ -517,7 +523,7 @@
              allowReset2000bc = true
              allow2000bcStart = false
            })
-       } else if (progress < 0.595 && allowReset2000bc) {
+       } else if (progress < STOPTHRESHOLD && allowReset2000bc) {
          d3.select('.slides-container-2000bc').style('display', 'none')
          d3.select('.slide-2000bc-final').style('display', 'none')
          allowFooter = false
@@ -535,15 +541,15 @@
      selector: '.begin-screen',
      enter(el) {
        console.log(`begin-screen enter`)
-       console.log(el)
        const thisSlide = d3.select(el).attr('data-step')
+       console.log(thisSlide)
        enterIntroScreen(thisSlide)
 
      },
      exit(el) {
        console.log(`begin-screen exit`)
-       console.log(el)
        const thisSlide = d3.select(el).attr('data-step')
+       console.log(thisSlide)
        exitIntroScreen(thisSlide)
      },
      progress: function (el, progress) {
