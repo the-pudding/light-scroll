@@ -81,7 +81,7 @@
  function hide2000bc() {
    d3.select('.slide-2000bc-intro').classed('hidden', true)
    d3.select('.slides-container-2000bc').classed('hidden', true)
-   console.log('hiding 2000 bc')
+   //    console.log('hiding 2000 b÷c')
  }
 
 
@@ -114,7 +114,7 @@
        win2000s()
        allow2000s = true
      } else if (totalSeconds < 2 && allow2000s) {
-       console.log('from scroll')
+       //    console.log('from scroll')
        unWin2000s()
      }
 
@@ -136,7 +136,7 @@
        allow1800sWin = true
      }
    } else if (clickedButton === 'begin-2000bc') {
-     console.log(totalSeconds)
+     //  console.log(totalSeconds)
      allowTimerUpdate = true
      d3.select('.slide-2000bc-final').classed('hidden', false)
      if (allowTimerUpdate) {
@@ -380,12 +380,12 @@
      enter(el) {
 
        const thisSlide = d3.select(el).attr('data-step')
-       console.log(`enter: ${thisSlide}`)
+       //    console.log(`enter: ${thisSlide}`)
        updateScrollDown(thisSlide)
      },
      exit(el) {
        const thisSlide = d3.select(el).attr('data-step')
-       console.log(`exit: ${thisSlide}`)
+       //    console.log(`exit: ${thisSlide}`)
        updateScrollUp(thisSlide)
      },
      progress: function (el, progress) {
@@ -416,7 +416,7 @@
        light.onStart2020()
      },
      progress: function (el, progress) {
-       console.log(progress)
+       //    console.log(progress)
        if (progress === 1) {
          const order = Promise.resolve()
          order.then(() => {
@@ -540,16 +540,16 @@
    enterView({
      selector: '.begin-screen',
      enter(el) {
-       console.log(`begin-screen enter`)
+       //    console.log(`begin-screen enter`)
        const thisSlide = d3.select(el).attr('data-step')
-       console.log(thisSlide)
+       //    console.log(thisSlide)
        enterIntroScreen(thisSlide)
 
      },
      exit(el) {
-       console.log(`begin-screen exit`)
+       //    console.log(`begin-screen exit`)
        const thisSlide = d3.select(el).attr('data-step')
-       console.log(thisSlide)
+       //    console.log(thisSlide)
        exitIntroScreen(thisSlide)
      },
      progress: function (el, progress) {
@@ -583,7 +583,7 @@
      if (screen === 'step18') {
 
        if (allow1800sWin) {
-         console.log('running enter step18')
+         //  console.log('running enter step18')
          light.onWinning1800()
          d3.select('.slide-2000bc-intro').style('display', 'flex')
          win1800s()
@@ -605,7 +605,7 @@
      if (screen === 'step18') {
 
        if (allow1800sWin) {
-         console.log('running exit step18')
+         //  console.log('running exit step18')
          d3.select('.slide-2000bc-intro').style('display', 'none')
          light.offWinning1800()
          unWin1800s()
@@ -624,16 +624,16 @@
    enterView({
      selector: '.win-screen',
      enter(el) {
-       console.log(`win-screen enter`)
-       console.log(el)
+       //    console.log(`win-screen enter`)
+       //    console.log(el)
        const thisSlide = d3.select(el).attr('data-step')
        enterWinScreen(thisSlide)
-       console.log(thisSlide)
-       console.log(`allowTimerUpdate: ${allowTimerUpdate}`)
+       //    console.log(thisSlide)
+       //    console.log(`allowTimerUpdate: ${allowTimerUpdate}`)
      },
      exit(el) {
-       console.log(`win-screen exit`)
-       console.log(el)
+       //    console.log(`win-screen exit`)
+       //    console.log(el)
        const thisSlide = d3.select(el).attr('data-step')
        exitWinScreen(thisSlide)
      },

@@ -151,7 +151,7 @@ function offWinning2020() {
 
 function offStart1800() {
 
-  console.log('offStart1800')
+  //   console.log('offStart1800')
 
   d3.select('.slide-1800s-intro').style('background-color', black)
   d3.select('.slide-1800s-intro').select('p.story-text').style('color', 'white')
@@ -164,7 +164,7 @@ function offStart1800() {
 
 function onStart1800() {
 
-  console.log('onStart1800')
+  //   console.log('onStart1800')
 
   d3.select('.slide-1800s-intro').style('background-color', yellow)
   d3.select('.slide-start-2020').style('background-color', yellow)
@@ -179,7 +179,7 @@ function onStart1800() {
 
 function onWinning1800() {
 
-  console.log('onWinning1800')
+  //   console.log('onWinning1800')
 
   d3.select('.slides-container-1800s').style('background-color', yellow)
   d3.select('.win-1800s').style('background-color', yellow)
@@ -192,7 +192,7 @@ function onWinning1800() {
 
 function offWinning1800() {
 
-  console.log('offWinning1800')
+  //   console.log('offWinning1800')
 
   d3.select('.slides-container-1800s').style('background-color', black)
   d3.select('.win-1800s').style('background-color', black)
@@ -207,7 +207,7 @@ function offWinning1800() {
 
 function offStart2000bc() {
 
-  console.log('offStart2000bc')
+  //   console.log('offStart2000bc')
 
   d3.select('.slide-2000bc-intro').style('background-color', black)
   d3.select('.slides-container-1800s').style('background-color', black)
@@ -222,7 +222,7 @@ function offStart2000bc() {
 
 function onStart2000bc() {
 
-  console.log('onStart2000bc')
+  //   console.log('onStart2000bc')
 
   d3.select('.slide-2000bc-intro').style('background-color', yellow)
   d3.select('.slides-container-1800s').style('background-color', yellow)
@@ -236,7 +236,7 @@ function onStart2000bc() {
 
 function onWinning2000bc() {
 
-  console.log('onWinning2000bc')
+  //   console.log('onWinning2000bc')
 
   d3.select('.slides-container-2000bc').style('background-color', yellow)
   d3.select('.slide-2000bc-final').style('background-color', yellow)
@@ -248,7 +248,7 @@ function onWinning2000bc() {
 
 function offWinning2000bc() {
 
-  console.log('offWinning2000bc')
+  //   console.log('offWinning2000bc')
 
   d3.select('.slides-container-2000bc').style('background-color', black)
   d3.select('.slide-2000bc-final').style('background-color', black)
