@@ -32,7 +32,7 @@
             <p>
                 Design by <a href="https://pudding.cool/author/jan-diehm"><strong>Jan Diehm</strong></a></p>
         </div>
-        <p class='intro-text'>Whoa, dark in here! Better turn the light on. </p>
+        <p class='intro-text'>Whoa, it's dark in here! Better turn the light on. </p>
         <p class='scroll-prompt'>Scroll down to turn the light on</p>
     </div>
     {{#each doc.story-open}}
@@ -69,18 +69,14 @@
 
         {{/if}}
 
-
-
-        {{!-- Add invisible element for 2000s win section button to kick off scroll section --}}
+        {{!-- Add win 2000s text --}}
         {{#if text-below}}
         <p class='win-2000s story-text invisible'>{{{text-below}}}</p>
         {{/if}}
 
+
+
     </div>
-
-
-
-
 
     {{/each}}
     {{!-- 1800s text --}}

@@ -28,6 +28,8 @@ function bulbOn() {
 
   d3.select('.timer-title').classed('white-text', false)
   d3.select('.timer-labels').classed('white-text', false)
+
+  d3.select('.story').style('background-color', yellow)
 }
 
 
@@ -37,6 +39,8 @@ function bulbOff() {
 
   d3.select('.timer-title').classed('white-text', true)
   d3.select('.timer-labels').classed('white-text', true)
+
+  d3.select('.story').style('background-color', black)
 }
 
 
@@ -84,7 +88,7 @@ function onIntroSlide() {
 // ENTERING 2020s SECTION: turn light on and off when moving into and back from the "Begin working" screen in 2020
 function offStart2020() {
 
-  console.log('offStart2020')
+
 
   d3.select('.slide4')
     .style('background-color', black)

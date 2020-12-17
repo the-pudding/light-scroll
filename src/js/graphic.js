@@ -114,7 +114,6 @@
        win2000s()
        allow2000s = true
      } else if (totalSeconds < 2 && allow2000s) {
-       //    console.log('from scroll')
        unWin2000s()
      }
 
@@ -418,34 +417,49 @@
      progress: function (el, progress) {
        //    console.log(progress)
        if (progress === 1) {
-         const order = Promise.resolve()
-         order.then(() => {
-             $html.classed('stop-scrolling', true)
-           })
-           .then(() => {
-             d3.select('#begin-2000s').style('visibility', 'visible')
-           })
+
        } else if (allowReset2000) {
-         allow1800sStart = false
-         allow1800sWin = false
-         allow2000bcStart = false
 
-         d3.select('.slide-1800s-intro').style('display', 'none')
-         d3.select('.slide-2000bc-intro').style('display', 'none')
-         d3.select('.slides-container-1800s').style('display', 'none')
-         d3.select('.slides-container-2000bc').style('display', 'none')
-         d3.select('.slide-2000bc-final').style('display', 'none')
-         light.offResetStart2020()
-
-         $firstCheckpointTitle.transition().style('opacity', 1)
-         $firstCheckpointText.transition().style('opacity', 1)
-         $win2000Text.transition().style('opacity', 0)
-
-         d3.select('.slide4').select('.story-text').style('color', '#0D0F2A')
-
-         timer.hideTimer()
        }
 
+     },
+     offset: 0,
+     once: false,
+   });
+
+
+
+   enterView({
+     selector: '.trigger',
+     enter(el) {
+       const order = Promise.resolve()
+       order.then(() => {
+           $html.classed('stop-scrolling', true)
+         })
+         .then(() => {
+           d3.select('#begin-2000s').style('visibility', 'visible')
+         })
+     },
+     exit(el) {
+
+       allow1800sStart = false
+       allow1800sWin = false
+       allow2000bcStart = false
+
+       d3.select('.slide-1800s-intro').style('display', 'none')
+       d3.select('.slide-2000bc-intro').style('display', 'none')
+       d3.select('.slides-container-1800s').style('display', 'none')
+       d3.select('.slides-container-2000bc').style('display', 'none')
+       d3.select('.slide-2000bc-final').style('display', 'none')
+       light.offResetStart2020()
+
+       $firstCheckpointTitle.transition().style('opacity', 1)
+       $firstCheckpointText.transition().style('opacity', 1)
+       $win2000Text.transition().style('opacity', 0)
+
+       d3.select('.slide4').select('.story-text').style('color', '#0D0F2A')
+
+       timer.hideTimer()
      },
      offset: 0,
      once: false,
