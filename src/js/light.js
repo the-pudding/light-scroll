@@ -51,7 +51,7 @@ function bulbOff() {
 
 function offIntroSlide() {
 
-  console.log('offIntroSlide')
+  //   console.log('offIntroSlide')
 
   d3.select('.intro1')
     .style('background-color', black)
@@ -59,6 +59,13 @@ function offIntroSlide() {
 
   d3.selectAll('.slide')
     .style('background-color', black)
+
+
+  d3.select('.intro1').select('.intro-text')
+    .style('color', '#fff')
+
+  d3.select('.intro1').select('.scroll-prompt')
+    .style('color', '#fff')
 
   bulbOff()
 
@@ -68,10 +75,16 @@ function offIntroSlide() {
 
 function onIntroSlide() {
 
-  console.log('onIntroSlide')
+  //   console.log('onIntroSlide')
 
   d3.select('.intro1')
     .style('background-color', yellow)
+
+  d3.select('.intro1').select('.intro-text')
+    .style('color', yellow)
+
+  d3.select('.intro1').select('.scroll-prompt')
+    .style('color', yellow)
 
   d3.selectAll('.slide')
     .style('background-color', yellow)
@@ -137,6 +150,7 @@ function onWinning2020() {
   d3.select('.slide-start-2020').style('background-color', yellow)
   d3.select('.slide4').style('background-color', yellow)
   d3.select('p.win-2000s').style('color', '#0F0E2C')
+  d3.select('.slide-1800s-intro').select('.story-text').style('color', yellow)
 
   bulbOn()
 }
@@ -148,6 +162,7 @@ function offWinning2020() {
 
   d3.select('.slide-start-2020').style('background-color', black)
   d3.select('.slide4').style('background-color', black)
+  d3.select('.slide-1800s-intro').select('.story-text').style('color', black)
 
   bulbOff()
 }

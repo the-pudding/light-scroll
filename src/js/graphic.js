@@ -1,5 +1,10 @@
  /* global d3 */
 
+ import {
+   disableBodyScroll,
+   enableBodyScroll,
+   clearAllBodyScrollLocks
+ } from 'body-scroll-lock';
  import enterView from 'enter-view'
  import jump from 'jump.js'
 
@@ -20,7 +25,8 @@
  let currentPixelPosition
  let totalSeconds
 
- let allow2000s = false;
+ let allowWin2000 = false
+ let allow2000sStart = false;
  let allowReset2000 = false;
 
 
@@ -38,11 +44,16 @@
 
  let allowTimerUpdate = true
 
+
+
  const STOPTHRESHOLD = 0.595
 
 
  //  Helper functions
 
+ function log(el) {
+   console.log(el)
+ }
 
  function secondsToString(seconds) {
    if (seconds >= 0) {
@@ -70,8 +81,6 @@
    return timeToDisplay
  }
 
-
-
  function show2000bc() {
    d3.select('.slide-2000bc-intro').classed('hidden', false)
    d3.select('slide-2000bc-intro').style('display', 'flex')
@@ -84,14 +93,12 @@
    //    console.log('hiding 2000 b÷c')
  }
 
-
-
  function setupScrollShortcut() {
    d3.select('.button-scroll-shortcut').on('click', () => {
      d3.select('.slide-2000bc-final').classed('hidden', false)
 
      allowFooter = true
-     jump('.slide-2000bc-final', {
+     jump('#final-para', {
        duration: 5000,
        offset: 0.5
      })
@@ -110,12 +117,12 @@
        $seconds.text(getTimeToDisplay())
      }
 
-     if (totalSeconds >= 2) {
-       win2000s()
-       allow2000s = true
-     } else if (totalSeconds < 2 && allow2000s) {
-       unWin2000s()
-     }
+     //  if (totalSeconds >= 1) {
+     //    win2000s()
+     //    allow2000s = true
+     //  } else if (totalSeconds < 1 && allow2000s) {
+
+     //  }
 
    } else if (clickedButton === 'begin-1800s') {
      allowTimerUpdate = true
@@ -158,11 +165,13 @@
 
  function win2000s() {
    light.onWinning2020()
-   allowReset2000 = true
+   log('nice')
+   //    allowReset2000 = true
    $firstCheckpointTitle.transition().style('opacity', 0)
    $firstCheckpointText.transition().style('opacity', 0)
    $win2000Text.transition().style('opacity', 1)
 
+   allowTimerUpdate = false
    // stop listening to scroll to freeze timer
    document.removeEventListener('scroll', startScrollListening)
 
@@ -219,7 +228,8 @@
 
    if (section === 'begin-2000s' && totalSeconds >= 2) {
 
-     //  timer.stopTimer()
+     //  timer.stopTimer()  
+     win2000s()
    } else if (section === 'begin-2000s' && totalSeconds < 2) {
      unWin2000s()
    }
@@ -256,10 +266,15 @@
        //show slides underneath and re-enable scroll
        d3.select('.slide-1800s-intro').style('display', 'flex').classed('hidden', false)
        $html.classed('stop-scrolling', false)
+       enableBodyScroll($html.node)
 
        basePixelPosition = document.documentElement.scrollTop || document.body.scrollTop
+       allow2000sStart = false
+       allowWin2000 = true
 
        startTimerCount(clickedButton)
+       console.log(`allow2000sStart: ${allow2000sStart}`)
+
 
 
      } else if (clickedButton === 'begin-1800s') {
@@ -275,6 +290,7 @@
 
        //restart scroll
        $html.classed('stop-scrolling', false)
+       enableBodyScroll($html.node)
 
        //show slides underneath and re-enable scroll
        d3.selectAll('.slide-1800s').style('display', 'flex').classed('hidden', false)
@@ -306,6 +322,7 @@
 
        //restart scroll
        $html.classed('stop-scrolling', false)
+       enableBodyScroll($html.node)
 
        //show slides underneath and re-enable scroll
        d3.selectAll('.slide-2000bc').style('display', 'flex').classed('hidden', false)
@@ -332,8 +349,18 @@
      light.onIntroSlide()
 
    }
+   if (slide === 'slide2') {
+     light.bulbOn()
+   }
+   if (slide === 'slide3') {
+     light.bulbOn()
+   }
+   if (slide === 'slide4') {
+     light.bulbOn()
+     //  d3.select('.trigger-win-2020').style('display', 'none')
+   }
    if (slide === 'slide5') {
-     //  light.offStart2020()
+
    }
    if (slide === 'slide6') {
      //  console.log('slide 6')
@@ -349,10 +376,11 @@
      timer.hideTimer()
      timer.resetTimer()
      $html.classed('stop-scrolling', false)
-   }
-   if (slide === 'slide5') {
-     light.on()
-
+   } else if (slide === 'slide4') {
+     light.bulbOn()
+     //  d3.select('.trigger-win-2020').style('display', 'block')
+   } else if (slide === 'slide5') {
+     light.bulbOn()
    }
  }
 
@@ -379,12 +407,12 @@
      enter(el) {
 
        const thisSlide = d3.select(el).attr('data-step')
-       //    console.log(`enter: ${thisSlide}`)
+       console.log(`enter: ${thisSlide}`)
        updateScrollDown(thisSlide)
      },
      exit(el) {
        const thisSlide = d3.select(el).attr('data-step')
-       //    console.log(`exit: ${thisSlide}`)
+       console.log(`exit: ${thisSlide}`)
        updateScrollUp(thisSlide)
      },
      progress: function (el, progress) {
@@ -408,10 +436,14 @@
    enterView({
      selector: '.slide-start-2020',
      enter(el) {
+       const thisSlide = d3.select(el).attr('data-step')
+       console.log(`enter: ${thisSlide}`)
        light.offStart2020()
-
+       allow2000sStart = true
      },
      exit(el) {
+       const thisSlide = d3.select(el).attr('data-step')
+       console.log(`exit: ${thisSlide}`)
        light.onStart2020()
      },
      progress: function (el, progress) {
@@ -429,26 +461,61 @@
 
 
 
-   enterView({
-     selector: '.trigger',
-     enter(el) {
-       const order = Promise.resolve()
-       order.then(() => {
-           $html.classed('stop-scrolling', true)
-         })
-         .then(() => {
-           d3.select('#begin-2000s').style('visibility', 'visible')
-         })
-     },
-     exit(el) {
+
+
+
+
+
+
+
+
+
+
+   //    2020s 
+
+   function updateIntroTriggerDown(el) {
+     if (el === 'trigger-begin-button-freeze-2020') {
+
+       if (allow2000sStart) {
+         console.log('handling allow 2020 to start')
+         const order = Promise.resolve()
+         order.then(() => {
+             $html.classed('stop-scrolling', true)
+             console.log('stop scrolling triggered')
+             disableBodyScroll($html.node)
+           })
+           .then(() => {
+             d3.select('#begin-2000s').style('visibility', 'visible')
+             d3.select('.trigger-win-2020').style('display', 'block')
+           })
+       }
+
+     } else if (el === 'trigger-win-2020') {
+       log('yup entering win screen 2020')
+       if (allowWin2000) {
+         console.log('handling trigger win 2020')
+         win2000s()
+         allow2000sStart = false
+         allowWin2000 = false
+       }
+
+     }
+   }
+
+
+
+   function updateIntroTriggerUp(el) {
+     if (el === 'trigger-begin-button-freeze-2020') {
+       console.log('exit trigger')
 
        allow1800sStart = false
        allow1800sWin = false
        allow2000bcStart = false
 
        d3.select('.slide-1800s-intro').style('display', 'none')
-       d3.select('.slide-2000bc-intro').style('display', 'none')
        d3.select('.slides-container-1800s').style('display', 'none')
+
+       d3.select('.slide-2000bc-intro').style('display', 'none')
        d3.select('.slides-container-2000bc').style('display', 'none')
        d3.select('.slide-2000bc-final').style('display', 'none')
        light.offResetStart2020()
@@ -460,6 +527,29 @@
        d3.select('.slide4').select('.story-text').style('color', '#0D0F2A')
 
        timer.hideTimer()
+     } else if (el === 'trigger-win-2020') {
+       unWin2000s()
+       allowWin2000 = false
+       allow2000sStart = false
+       allow1800sStart = false
+       allow1800sWin = false
+       allow2000bcStart = false
+     }
+   }
+
+
+   enterView({
+     selector: '.trigger',
+     enter(el) {
+       const thisSlide = d3.select(el).attr('data-step')
+       console.log(`enter ${thisSlide}`)
+       updateIntroTriggerDown(thisSlide)
+     },
+     exit(el) {
+
+       const thisSlide = d3.select(el).attr('data-step')
+       console.log(`exit ${thisSlide}`)
+       updateIntroTriggerUp(thisSlide)
      },
      offset: 0,
      once: false,
@@ -510,6 +600,7 @@
          const order = Promise.resolve()
          order.then(() => {
              $html.classed('stop-scrolling', true)
+             disableBodyScroll($html.node)
            })
            .then(() => {
              d3.select('#begin-1800s').style('visibility', 'visible')
@@ -530,6 +621,7 @@
          order.then(() => {
              d3.select('.slide-2000bc-final').classed('hidden', true)
              $html.classed('stop-scrolling', true)
+             disableBodyScroll($html.node)
            })
            .then(() => {
              d3.select('#begin-2000bc').style('visibility', 'visible')
@@ -556,14 +648,14 @@
      enter(el) {
        //    console.log(`begin-screen enter`)
        const thisSlide = d3.select(el).attr('data-step')
-       //    console.log(thisSlide)
+       console.log(`enter ${thisSlide}`)
        enterIntroScreen(thisSlide)
 
      },
      exit(el) {
        //    console.log(`begin-screen exit`)
        const thisSlide = d3.select(el).attr('data-step')
-       //    console.log(thisSlide)
+       console.log(`exit ${thisSlide}`)
        exitIntroScreen(thisSlide)
      },
      progress: function (el, progress) {
@@ -642,33 +734,20 @@
        //    console.log(el)
        const thisSlide = d3.select(el).attr('data-step')
        enterWinScreen(thisSlide)
-       //    console.log(thisSlide)
+       console.log(`enter ${thisSlide}`)
        //    console.log(`allowTimerUpdate: ${allowTimerUpdate}`)
      },
      exit(el) {
        //    console.log(`win-screen exit`)
        //    console.log(el)
        const thisSlide = d3.select(el).attr('data-step')
+       console.log(`exit ${thisSlide}`)
        exitWinScreen(thisSlide)
      },
      progress: function (el, progress) {},
      offset: 0, // enter at top of viewport
      once: false, // trigger just once
    });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -685,14 +764,6 @@
      offset: 0.05, // enter at top of viewport
      once: false, // trigger just once
    });
-
-
-
-
-
-
-
-
 
 
  }
