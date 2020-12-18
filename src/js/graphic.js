@@ -45,7 +45,6 @@
  let allowTimerUpdate = true
 
 
-
  const STOPTHRESHOLD = 0.595
 
 
@@ -871,7 +870,9 @@
    const order = Promise.resolve()
 
    order.then(() => {
+
        resize()
+
        light.bulbOff()
      })
      .then(() => {
