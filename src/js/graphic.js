@@ -301,7 +301,7 @@
 
        d3.select('.slides-container-1800s')
          .style('display', 'flex')
-         .style('height', '21600px')
+         .style('height', '19400px')
          .classed('hidden', false)
 
 
@@ -333,7 +333,7 @@
 
        d3.select('.slides-container-2000bc')
          .style('display', 'flex')
-         .style('height', '205200px')
+         .style('height', '208800px')
          .classed('hidden', false)
      }
    })
